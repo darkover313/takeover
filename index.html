@@ -1,5 +1,173 @@
-<center>
-  <img src="https://cc.uobaghdad.edu.iq/wp-content/uploads/sites/48/uploads/2017/pc%20tec/haker-cyberatak-komputer-fotolia-660x440.gif"/>
-  <h1>hacked by 313</h1>
-  <h2>المتطور 313 كان هنا ههههههههههههههههههه</h2>
-</center>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى حبيبتي صفاء ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%);
+            font-family: 'Scheherazade New', serif;
+            color: #4b0082;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fade-in 2s ease-out;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-box {
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .love-message {
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            background-color: #e94e77;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:hover {
+            background-color: #d13a60;
+            transform: scale(1.05);
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .heart-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 0, 0, 0.5);
+            animation: float 15s ease-in-out infinite;
+            bottom: -10vh;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg) scale(0); opacity: 0; }
+            50% { transform: translateY(-50vh) rotate(30deg) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(60deg) scale(1.2); opacity: 0; }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-title">إلى حبيبتي صفاء 💖</h1>
+        <div class="message-box">
+            <p id="message" class="love-message"></p>
+        </div>
+        <button id="next-message-btn" class="btn">رسالة أخرى</button>
+    </div>
+    <div class="heart-animation"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const messages = [
+                "صفاء، أنتِ أجمل ما في حياتي.",
+                "قلبي ينبض بحبك يا صفاء.",
+                "أنتِ النور الذي يضيء أيامي.",
+                "كل لحظة معكِ هي نعيم.",
+                "أحبك أكثر من الكلمات، يا صفاء.",
+                "أنتِ أغنيتي المفضلة، ونجمتي اللامعة.",
+                "لا يكتمل يومي بدون ابتسامتكِ.",
+                "أنتِ كل ما أتمناه في هذه الحياة.",
+                "صوتكِ لحن، ووجودكِ أمان.",
+                "يا صفاء، أنتِ معجزة حياتي."
+            ];
+
+            const messageElement = document.getElementById('message');
+            const nextMessageBtn = document.getElementById('next-message-btn');
+            let messageIndex = 0;
+
+            const displayMessageWithTypingEffect = (msg) => {
+                messageElement.textContent = '';
+                messageElement.style.opacity = '1';
+                let i = 0;
+                const typingInterval = setInterval(() => {
+                    if (i < msg.length) {
+                        messageElement.textContent += msg.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typingInterval);
+                    }
+                }, 50);
+            };
+
+            const showNextMessage = () => {
+                const currentMessage = messages[messageIndex];
+                displayMessageWithTypingEffect(currentMessage);
+                messageIndex = (messageIndex + 1) % messages.length;
+            };
+
+            nextMessageBtn.addEventListener('click', showNextMessage);
+
+            showNextMessage();
+
+            const heartContainer = document.querySelector('.heart-animation');
+            const createHeart = () => {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 5 + 10 + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.textContent = '❤️';
+                heartContainer.appendChild(heart);
+                setTimeout(() => {
+                    heart.remove();
+                }, 15000);
+            };
+
+            setInterval(createHeart, 300);
+        });
+    </script>
+
+</body>
+</html>
