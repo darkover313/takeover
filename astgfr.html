@@ -8,309 +8,114 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap');
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
 
         body {
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow-x: hidden;
+            color: #fff; min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px; overflow-x: hidden;
         }
 
-        /* زر فتح القائمة الجانبية */
         .open-sidebar-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid #d4af37;
-            color: #d4af37;
-            padding: 12px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            z-index: 99;
+            position: fixed; top: 20px; right: 20px; background: rgba(212, 175, 55, 0.2);
+            border: 1px solid #d4af37; color: #d4af37; padding: 12px 20px; border-radius: 12px;
+            cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 10px;
+            transition: all 0.3s ease; z-index: 99;
         }
 
-        .open-sidebar-btn:hover {
-            background: #d4af37;
-            color: #1a1a1a;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
+        .open-sidebar-btn:hover { background: #d4af37; color: #1a1a1a; }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #d4af37; font-size: 2.8rem; text-shadow: 0 2px 15px rgba(212, 175, 55, 0.4); margin-bottom: 10px; }
+        .header p { font-size: 1.2rem; color: #ccc; }
 
-        .header h1 {
-            color: #d4af37;
-            font-size: 2.8rem;
-            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.4);
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            color: #ccc;
-        }
-
-        /* المسبحة */
         .tasbih-container {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 50%;
-            width: 320px;
-            height: 320px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            position: relative;
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 50%; width: 320px; height: 320px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6); position: relative;
         }
 
-        .counter {
-            font-size: 4.5rem;
-            font-weight: 800;
-            color: #d4af37;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
-        }
-
+        .counter { font-size: 4.5rem; font-weight: 800; color: #d4af37; margin-bottom: 10px; }
+        
         .user-country-tag {
-            font-size: 1rem;
-            color: #e0e0e0;
-            margin-bottom: 15px;
-            background: rgba(255,255,255,0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid rgba(212,175,55,0.2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1rem; color: #e0e0e0; margin-bottom: 15px; background: rgba(255,255,255,0.1);
+            padding: 5px 15px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.2);
+            display: flex; align-items: center; gap: 8px;
         }
 
         .tasbih-btn {
-            background: radial-gradient(circle, #d4af37 0%, #aa8722 100%);
-            border: none;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            color: #1a1a1a;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.5), inset 0 -3px 10px rgba(0,0,0,0.3);
-            transition: transform 0.1s;
+            background: radial-gradient(circle, #d4af37 0%, #aa8722 100%); border: none; width: 100px; height: 100px;
+            border-radius: 50%; color: #1a1a1a; font-size: 1.2rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5), inset 0 -3px 10px rgba(0,0,0,0.3); transition: transform 0.1s;
         }
+        .tasbih-btn:active { transform: scale(0.92); }
 
-        .tasbih-btn:active {
-            transform: scale(0.92);
-        }
-
-        /* القائمة الجانبية (Sidebar) */
         .sidebar {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 400px;
-            height: 100vh;
-            background: rgba(15, 32, 39, 0.98);
-            backdrop-filter: blur(20px);
-            border-left: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-            transition: right 0.4s cubic-bezier(0.05, 0.74, 0.2, 1.0);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            padding: 25px;
+            position: fixed; top: 0; right: -400px; width: 400px; height: 100vh;
+            background: rgba(15, 32, 39, 0.98); backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(212, 175, 55, 0.3); box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            transition: right 0.4s cubic-bezier(0.05, 0.74, 0.2, 1.0); z-index: 100;
+            display: flex; flex-direction: column; padding: 25px;
         }
-
-        .sidebar.open {
-            right: 0;
-        }
+        .sidebar.open { right: 0; }
 
         .sidebar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 15px;
         }
+        .sidebar-header h2 { color: #d4af37; font-size: 1.6rem; }
+        .close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
 
-        .sidebar-header h2 {
-            color: #d4af37;
-            font-size: 1.6rem;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* شريط البحث */
-        .search-box {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
+        .search-box { position: relative; margin-bottom: 20px; }
         .search-box input {
-            width: 100%;
-            padding: 12px 40px 12px 15px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
+            width: 100%; padding: 12px 40px 12px 15px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; outline: none;
         }
+        .search-box i { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: #888; }
 
-        .search-box i {
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
-            color: #888;
-        }
-
-        /* قائمة الدول */
-        .rank-list {
-            list-style: none;
-            overflow-y: auto;
-            flex-grow: 1;
-            /* إضافة انسيابية عند تغير الترتيب */
-            position: relative;
-        }
-
+        .rank-list { list-style: none; overflow-y: auto; flex-grow: 1; }
         .rank-list::-webkit-scrollbar { width: 5px; }
         .rank-list::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
 
         .rank-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.02);
-            margin-bottom: 8px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s ease; /* انسيابية الحركة */
+            display: flex; justify-content: space-between; align-items: center; padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.02); margin-bottom: 8px; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;
         }
+        .rank-info { display: flex; align-items: center; gap: 12px; }
+        .rank-number { font-weight: bold; color: #aaa; font-size: 1rem; width: 30px; text-align: center; }
 
-        .rank-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .rank-number {
-            font-weight: bold;
-            color: #aaa;
-            font-size: 1rem;
-            width: 30px;
-            text-align: center;
-        }
-
-        /* تمييز المراكز الأولى */
         .rank-item:nth-child(1) { background: rgba(212, 175, 55, 0.15); border-color: #d4af37; transform: scale(1.02); }
         .rank-item:nth-child(1) .rank-number { color: #d4af37; font-size: 1.3rem; }
         .rank-item:nth-child(2) .rank-number { color: #c0c0c0; font-size: 1.2rem; }
         .rank-item:nth-child(3) .rank-number { color: #cd7f32; font-size: 1.1rem; }
 
         .country-flag { font-size: 1.5rem; }
-        .country-name { font-size: 1.1rem; }
         .score { font-weight: bold; color: #4CAF50; font-size: 1.2rem; }
 
-        /* نافذة اختيار الدولة (Popup) */
         .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 200;
-            opacity: 0;
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); display: flex;
+            align-items: center; justify-content: center; z-index: 200; opacity: 0; pointer-events: none;
             transition: opacity 0.4s ease;
         }
-
-        .overlay.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .overlay.show { opacity: 1; pointer-events: auto; }
 
         .popup-box {
-            background: #1a2f3b;
-            border: 1px solid #d4af37;
-            padding: 30px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+            background: #1a2f3b; border: 1px solid #d4af37; padding: 30px; border-radius: 20px;
+            width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 35px rgba(0,0,0,0.5);
         }
-
-        .popup-box h3 {
-            color: #d4af37;
-            margin-bottom: 15px;
-            font-size: 1.6rem;
-        }
-
+        .popup-box h3 { color: #d4af37; margin-bottom: 15px; }
         .popup-box select {
-            width: 100%;
-            padding: 12px;
-            background: #0f2027;
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            outline: none;
+            width: 100%; padding: 12px; background: #0f2027; border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 10px; color: #fff; margin-bottom: 20px; outline: none; font-size: 1rem;
         }
-
         .popup-box button {
-            background: linear-gradient(90deg, #d4af37, #aa8722);
-            border: none;
-            color: #1a1a1a;
-            padding: 12px 30px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.2s;
+            background: linear-gradient(90deg, #d4af37, #aa8722); border: none; color: #1a1a1a;
+            padding: 12px 30px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem;
         }
-
-        .popup-box button:active { transform: scale(0.97); }
-
-        @media (max-width: 450px) {
-            .sidebar { width: 100%; right: -100%; }
-        }
+        @media (max-width: 450px) { .sidebar { width: 100%; right: -100%; } }
     </style>
 </head>
 <body>
@@ -321,12 +126,12 @@
 
     <div class="header">
         <h1>استغفر الله</h1>
-        <p>عداد الاستغفار التنافسي (بدون إنترنت)</p>
+        <p>النسخة المحدثة المستقرة</p>
     </div>
 
     <div class="tasbih-container">
         <div class="counter" id="userCounter">0</div>
-        <div class="user-country-tag" id="userCountryTag">جاري التحميل...</div>
+        <div class="user-country-tag" id="userCountryTag">الرجاء اختيار الدولة</div>
         <button class="tasbih-btn" onclick="handleIstighfarClick()">استغفر</button>
     </div>
 
@@ -335,20 +140,16 @@
             <h2>🏆 الترتيب الحالي</h2>
             <button class="close-btn" onclick="toggleSidebar(false)"><i class="fas fa-times"></i></button>
         </div>
-        
         <div class="search-box">
             <i class="fas fa-search"></i>
             <input type="text" id="searchCountry" placeholder="ابحث عن دولة..." oninput="filterCountries()">
         </div>
-
-        <ul class="rank-list" id="rankList">
-            </ul>
+        <ul class="rank-list" id="rankList"></ul>
     </div>
 
     <div class="overlay" id="welcomePopup">
         <div class="popup-box">
             <h3>اختر دولتك للبدء 🌍</h3>
-            <p style="color: #ccc; margin-bottom: 15px; font-size: 0.95rem;">سيتم حفظ تقدم دولتك في متصفحك محلياً</p>
             <select id="countrySelect">
                 <option value="SA|السعودية|🇸🇦">السعودية 🇸🇦</option>
                 <option value="IQ|العراق|🇮🇶">العراق 🇮🇶</option>
@@ -374,13 +175,14 @@
     </div>
 
     <script>
-        let userCountryKey = "";
-        let userCountryName = "";
-        let userCountryFlag = "";
+        // تغيير مفاتيح الحفظ لضمان عدم حدوث تضارب مع النسخ السابقة (Fresh Start)
+        const DATA_KEY = "tasbih_data_v3";
+        const USER_KEY = "tasbih_user_v3";
+
+        let currentUser = null; 
         let localCounter = 0;
 
-        // قاعدة البيانات المحلية المدمجة (الاسم والعلم منفصلين لتنسيق أفضل)
-        const defaultCountriesData = {
+        const defaultData = {
             "SA": { name: "السعودية", flag: "🇸🇦", score: 0 },
             "IQ": { name: "العراق", flag: "🇮🇶", score: 0 },
             "EG": { name: "مصر", flag: "🇪🇬", score: 0 },
@@ -397,4 +199,121 @@
             "SY": { name: "سوريا", flag: "🇸🇾", score: 0 },
             "TN": { name: "تونس", flag: "🇹🇳", score: 0 },
             "YE": { name: "اليمن", flag: "🇾🇪", score: 0 },
-            "PS": { name: "فلسطين", flag
+            "PS": { name: "فلسطين", flag: "🇵🇸", score: 0 },
+            "LB": { name: "لبنان", flag: "🇱🇧", score: 0 }
+        };
+
+        function getCountriesData() {
+            try {
+                const savedData = localStorage.getItem(DATA_KEY);
+                return savedData ? JSON.parse(savedData) : JSON.parse(JSON.stringify(defaultData));
+            } catch (e) {
+                return JSON.parse(JSON.stringify(defaultData));
+            }
+        }
+
+        function saveCountriesData(data) {
+            localStorage.setItem(DATA_KEY, JSON.stringify(data));
+            renderLeaderboard();
+        }
+
+        function checkUserCountry() {
+            try {
+                const savedUser = localStorage.getItem(USER_KEY);
+                if(savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    updateUserUI();
+                } else {
+                    document.getElementById('welcomePopup').classList.add('show');
+                }
+            } catch (e) {
+                document.getElementById('welcomePopup').classList.add('show');
+            }
+        }
+
+        function updateUserUI() {
+            document.getElementById('userCountryTag').innerHTML = `بلدك: <span style="font-size:1.2rem">${currentUser.flag}</span> ${currentUser.name}`;
+            const allData = getCountriesData();
+            localCounter = allData[currentUser.key] ? allData[currentUser.key].score : 0;
+            document.getElementById('userCounter').innerText = localCounter;
+        }
+
+        window.saveUserCountry = function() {
+            const select = document.getElementById('countrySelect');
+            const [key, name, flag] = select.value.split('|');
+            
+            currentUser = { key, name, flag };
+            localStorage.setItem(USER_KEY, JSON.stringify(currentUser));
+            
+            updateUserUI();
+            document.getElementById('welcomePopup').classList.remove('show');
+        }
+
+        window.handleIstighfarClick = function() {
+            if(!currentUser) {
+                document.getElementById('welcomePopup').classList.add('show');
+                return;
+            }
+
+            localCounter++;
+            document.getElementById('userCounter').innerText = localCounter;
+
+            const allData = getCountriesData();
+            if(!allData[currentUser.key]) {
+                allData[currentUser.key] = { name: currentUser.name, flag: currentUser.flag, score: 0 };
+            }
+            allData[currentUser.key].score = localCounter;
+            
+            saveCountriesData(allData);
+        };
+
+        window.renderLeaderboard = function(filterText = "") {
+            const data = getCountriesData();
+            const rankList = document.getElementById('rankList');
+            rankList.innerHTML = '';
+
+            let sortedList = Object.keys(data).map(key => ({
+                code: key,
+                name: data[key].name,
+                flag: data[key].flag,
+                score: data[key].score
+            }));
+
+            sortedList.sort((a, b) => b.score - a.score);
+
+            let rankIdx = 1;
+            sortedList.forEach((country) => {
+                if (filterText && !country.name.includes(filterText)) return;
+
+                const li = document.createElement('li');
+                li.className = 'rank-item';
+                li.innerHTML = `
+                    <div class="rank-info">
+                        <span class="rank-number">#${rankIdx}</span>
+                        <span class="country-flag">${country.flag}</span>
+                        <span class="country-name">${country.name}</span>
+                    </div>
+                    <span class="score">${country.score.toLocaleString()}</span>
+                `;
+                rankList.appendChild(li);
+                rankIdx++;
+            });
+        };
+
+        window.filterCountries = function() {
+            const text = document.getElementById('searchCountry').value;
+            renderLeaderboard(text);
+        };
+
+        window.toggleSidebar = function(open) {
+            const sidebar = document.getElementById('sidebar');
+            if(open) sidebar.classList.add('open');
+            else sidebar.classList.remove('open');
+        }
+
+        // تهيئة التطبيق عند فتح الصفحة
+        checkUserCountry();
+        renderLeaderboard();
+    </script>
+</body>
+</html>
