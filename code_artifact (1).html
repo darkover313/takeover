@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>مفكرة ستيتش الدراسية 👽🌊</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* ألوان خلفية مستوحاة من ستيتش والبحر */
+            background-color: #e0f0ff;
+            background-image: 
+                radial-gradient(#8db5e7 2px, transparent 2px),
+                radial-gradient(#8db5e7 2px, transparent 2px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            color: #132b4f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .controls-container {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px dashed #4a88c7; /* أزرق ستيتش */
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 8px 15px rgba(74, 136, 199, 0.2);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #1b305a; /* أزرق داكن */
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(141, 181, 231, 0.5);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #3565a1;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .time-container {
+            display: flex;
+            gap: 10px;
+            grid-column: span 2;
+        }
+
+        .time-container select {
+            flex: 1;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 12px;
+            border: 2px solid #8db5e7;
+            font-size: 15px;
+            outline: none;
+            background: #f4f9ff;
+            color: #132b4f;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #f192b6; /* لون أذن ستيتش الوردية عند التركيز */
+            box-shadow: 0 0 8px rgba(241, 146, 182, 0.3);
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        button:active { transform: scale(0.95); }
+
+        .btn-add {
+            background: linear-gradient(45deg, #4a88c7, #1b305a);
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(27, 48, 90, 0.3);
+        }
+
+        .btn-add:hover {
+            background: linear-gradient(45deg, #3565a1, #132b4f);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-notify, .btn-download {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .btn-notify { border: 2px solid #f192b6; color: #d81b60; }
+        .btn-notify:hover { background: #fff0f5; }
+
+        .btn-download { border: 2px solid #4a88c7; color: #1b305a; }
+        .btn-download:hover { background: #f4f9ff; }
+
+        #schedule-container {
+            background: white;
+            border-radius: 25px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(27, 48, 90, 0.15);
+            border: 4px solid #8db5e7;
+            position: relative;
+        }
+
+        .schedule-title {
+            text-align: center;
+            color: #1b305a;
+            font-size: 20px;
+            border-bottom: 2px dashed #8db5e7;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .day-card {
+            background: #f4f9ff;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-right: 6px solid #f192b6; /* لمسة وردية */
+        }
+
+        .day-title {
+            font-size: 18px;
+            color: #1b305a;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .task-item {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #8db5e7;
+        }
+
+        .task-item:last-child { margin-bottom: 0; }
+
+        .task-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .task-name { font-weight: 600; color: #132b4f; font-size: 15px; }
+        .task-time { font-size: 13px; color: #3565a1; }
+
+        .btn-delete {
+            background: #ffebee;
+            color: #e53935;
+            border: 1px solid #ef9a9a;
+            padding: 5px 8px;
+            font-size: 12px;
+            border-radius: 8px;
+        }
+
+        .btn-delete:hover {
+            background: #ffcdd2;
+        }
+
+        .empty-msg {
+            text-align: center;
+            color: #4a88c7;
+            font-size: 14px;
+            padding: 20px 0;
+        }
+
+        .hide-on-download .btn-delete {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls-container">
+        <h1>👽 مفكرة ستيتش 🌺</h1>
+        <p class="subtitle">نظم وقتك مع التجربة 626 واستعد للنجاح! 🏄‍♂️</p>
+
+        <div class="input-group">
+            <select id="taskDay" class="full-width">
+                <option value="الأحد">🌊 يوم الأحد</option>
+                <option value="الإثنين">🌊 يوم الإثنين</option>
+                <option value="الثلاثاء">🌊 يوم الثلاثاء</option>
+                <option value="الأربعاء">🌊 يوم الأربعاء</option>
+                <option value="الخميس">🌊 يوم الخميس</option>
+                <option value="الجمعة">🌊 يوم الجمعة</option>
+                <option value="السبت">🌊 يوم السبت</option>
+            </select>
+            
+            <input type="text" id="taskName" class="full-width" placeholder="اسم المادة (مثال: علوم 🔬)">
+            
+            <div class="time-container">
+                <select id="taskHour">
+                    <option value="" disabled selected>الساعة</option>
+                    <option value="1">1</option><option value="2">2</option>
+                    <option value="3">3</option><option value="4">4</option>
+                    <option value="5">5</option><option value="6">6</option>
+                    <option value="7">7</option><option value="8">8</option>
+                    <option value="9">9</option><option value="10">10</option>
+                    <option value="11">11</option><option value="12">12</option>
+                </select>
+                <select id="taskMinute">
+                    <option value="" disabled selected>الدقيقة</option>
+                    <option value="00">00</option><option value="05">05</option>
+                    <option value="10">10</option><option value="15">15</option>
+                    <option value="20">20</option><option value="25">25</option>
+                    <option value="30">30</option><option value="35">35</option>
+                    <option value="40">40</option><option value="45">45</option>
+                    <option value="50">50</option><option value="55">55</option>
+                </select>
+                <select id="taskAmPm">
+                    <option value="ص">صباحاً ☀️</option>
+                    <option value="م">مساءً 🌙</option>
+                </select>
+            </div>
+
+            <button class="btn-add full-width" onclick="addTask()">إضافة للجدول 🚀</button>
+        </div>
+
+        <div class="action-buttons">
+            <button id="notify-btn" class="btn-notify" onclick="requestNotificationPermission()">🔔 تفعيل الإشعارات</button>
+            <button class="btn-download" onclick="downloadSchedule()">📥 تنزيل الجدول كصورة</button>
+        </div>
+    </div>
+
+    <div id="schedule-container">
+        <h2 class="schedule-title">جدول ستيتش الأسبوعي 🥥🌴</h2>
+        <div id="schedule-content">
+            <!-- سيتم إضافة المهام هنا برمجياً -->
+        </div>
+    </div>
+
+    <script>
+        let tasks = [];
+        const daysOfWeek = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTasks();
+            setInterval(checkAlarms, 60000); 
+            checkNotificationStatus();
+        });
+
+        function checkNotificationStatus() {
+            if (Notification.permission === "granted") {
+                document.getElementById('notify-btn').style.display = 'none';
+            }
+        }
+
+        function requestNotificationPermission() {
+            if ("Notification" in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        alert("ألوها! 🌺 تم تفعيل الإشعارات! ستيتش سيذكرك بمواعيد الدراسة بتوقيت مكة 👽");
+                        checkNotificationStatus();
+                    }
+                });
+            }
+        }
+
+        function addTask() {
+            const dayInput = document.getElementById('taskDay').value;
+            const nameInput = document.getElementById('taskName').value;
+            const hourInput = document.getElementById('taskHour').value;
+            const minuteInput = document.getElementById('taskMinute').value;
+            const ampmInput = document.getElementById('taskAmPm').value;
+            
+            if (nameInput.trim() === '' || hourInput === '' || minuteInput === '') {
+                alert("أوهانا تعني العائلة! والعائلة لا تنسى كتابة اسم المادة والوقت! 🥺🌺");
+                return;
+            }
+
+            const newTask = {
+                id: Date.now(),
+                day: dayInput,
+                name: nameInput,
+                hour: hourInput,
+                minute: minuteInput,
+                ampm: ampmInput,
+                notified: false
+            };
+
+            tasks.push(newTask);
+            saveTasks();
+            renderSchedule();
+
+            document.getElementById('taskName').value = '';
+        }
+
+        function saveTasks() {
+            // تم تغيير مفتاح التخزين ليتناسب مع الطابع الجديد وتجنب التعارض
+            localStorage.setItem('stitchScheduleMecca', JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            const savedData = localStorage.getItem('stitchScheduleMecca');
+            if (savedData) {
+                tasks = JSON.parse(savedData);
+                renderSchedule();
+            }
+        }
+
+        function renderSchedule() {
+            const scheduleContent = document.getElementById('schedule-content');
+            scheduleContent.innerHTML = '';
+
+            if (tasks.length === 0) {
+                scheduleContent.innerHTML = '<p class="empty-msg">الجدول فارغ حالياً.. استعد للمغامرة وضيف موادك! 👽🏄‍♂️</p>';
+                return;
+            }
+
+            daysOfWeek.forEach(day => {
+                const dayTasks = tasks.filter(task => task.day === day);
+                
+                if (dayTasks.length > 0) {
+                    // ترتيب المهام حسب الوقت
+                    dayTasks.sort((a, b) => {
+                        let aHour24 = parseInt(a.hour) === 12 ? (a.ampm === 'ص' ? 0 : 12) : (a.ampm === 'م' ? parseInt(a.hour) + 12 : parseInt(a.hour));
+                        let bHour24 = parseInt(b.hour) === 12 ? (b.ampm === 'ص' ? 0 : 12) : (b.ampm === 'م' ? parseInt(b.hour) + 12 : parseInt(b.hour));
+                        
+                        if (aHour24 !== bHour24) return aHour24 - bHour24;
+                        return parseInt(a.minute) - parseInt(b.minute);
+                    });
+
+                    const dayCard = document.createElement('div');
+                    dayCard.className = 'day-card';
+                    
+                    let tasksHTML = '';
+                    dayTasks.forEach(task => {
+                        let niceTime = `${task.hour}:${task.minute} ${task.ampm}`;
+
+                        tasksHTML += `
+                            <div class="task-item">
+                                <div class="task-details">
+                                    <span class="task-name">${task.name}</span>
+                                    <span class="task-time">⏰ ${niceTime} (مكة)</span>
+                                </div>
+                                <button class="btn-delete" onclick="deleteTask(${task.id})">حذف</button>
+                            </div>
+                        `;
+                    });
+
+                    dayCard.innerHTML = `
+                        <div class="day-title">📅 ${day}</div>
+                        ${tasksHTML}
+                    `;
+                    scheduleContent.appendChild(dayCard);
+                }
+            });
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            saveTasks();
+            renderSchedule();
+        }
+
+        function checkAlarms() {
+            // حساب الوقت الحالي بتوقيت مكة المكرمة
+            const meccaTime = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Riyadh"}));
+            const currentDayName = daysOfWeek[meccaTime.getDay()];
+            
+            let h = meccaTime.getHours();
+            let m = meccaTime.getMinutes().toString().padStart(2, '0');
+            let currentAmPm = h >= 12 ? 'م' : 'ص';
+            
+            h = h % 12 || 12; 
+            let currentHourStr = h.toString();
+
+            tasks.forEach(task => {
+                if (task.day === currentDayName && 
+                    task.hour === currentHourStr && 
+                    task.minute === m && 
+                    task.ampm === currentAmPm && 
+                    !task.notified) {
+                    
+                    showNotification(task.name);
+                    task.notified = true; 
+                    saveTasks();
+                }
+            });
+        }
+
+        function showNotification(taskName) {
+            if ("Notification" in window && Notification.permission === "granted") {
+                new Notification("ستيتش يذكرك! 👽", {
+                    body: `ألوها! 🌺 حان وقت دراسة: ${taskName} 🚀 (بتوقيت مكة)`,
+                });
+            } else {
+                alert(`ستيتش يذكرك! 👽\nألوها! 🌺 حان وقت دراسة: ${taskName} (بتوقيت مكة)`);
+            }
+        }
+
+        function downloadSchedule() {
+            const scheduleElement = document.getElementById('schedule-container');
+            scheduleElement.classList.add('hide-on-download');
+
+            html2canvas(scheduleElement, {
+                scale: 2, 
+                backgroundColor: "#e0f0ff", // مطابقة لون الخلفية الجديد
+                borderRadius: 25
+            }).then(canvas => {
+                scheduleElement.classList.remove('hide-on-download');
+                const link = document.createElement('a');
+                link.download = 'جدول_ستيتش_توقيت_مكة.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
