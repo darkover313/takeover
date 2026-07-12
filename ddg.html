@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>دراسة الجدوى الاقتصادية</title>
+<title>دراسة الجدوى الاقتصادية الكاملة</title>
 <style>
   :root{
     --primary:#1f5f4f;
@@ -21,23 +21,15 @@
     padding:24px;
     line-height:1.6;
   }
-  h1{
-    text-align:center;
-    color:var(--primary);
-    margin-bottom:4px;
-  }
-  .sub{
-    text-align:center;
-    color:#777;
-    margin-bottom:24px;
-  }
+  h1{text-align:center; color:var(--primary); margin-bottom:4px;}
+  .sub{text-align:center; color:#777; margin-bottom:24px;}
   .card{
     background:var(--card);
     border:1px solid var(--border);
     border-radius:10px;
     padding:20px;
-    margin:0 auto 24px auto;
-    max-width:1000px;
+    margin:0 auto 22px auto;
+    max-width:1050px;
     box-shadow:0 2px 6px rgba(0,0,0,0.05);
   }
   h2{
@@ -46,12 +38,8 @@
     padding-bottom:8px;
     margin-top:0;
   }
-  label{
-    display:block;
-    font-weight:600;
-    margin:10px 0 4px;
-    font-size:14px;
-  }
+  h3{color:var(--primary); margin-bottom:6px;}
+  label{display:block; font-weight:600; margin:10px 0 4px; font-size:14px;}
   input[type=text], input[type=number], textarea{
     width:100%;
     padding:8px 10px;
@@ -62,192 +50,475 @@
     background:#fffdf9;
   }
   textarea{resize:vertical; min-height:50px;}
-  table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:10px;
-  }
-  th, td{
-    border:1px solid var(--border);
-    padding:6px;
-    text-align:center;
-    font-size:13px;
-  }
+  table{width:100%; border-collapse:collapse; margin-top:10px;}
+  th, td{border:1px solid var(--border); padding:6px; text-align:center; font-size:13px;}
   th{background:#eef0e8; color:var(--primary);}
   td input{border:none; background:transparent; text-align:center; width:100%;}
   .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
   .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;}
   .total-line{
-    display:flex;
-    justify-content:space-between;
-    background:#f1efe4;
-    padding:10px 14px;
-    border-radius:6px;
-    margin-top:10px;
-    font-weight:700;
-    color:var(--primary);
+    display:flex; justify-content:space-between;
+    background:#f1efe4; padding:10px 14px; border-radius:6px;
+    margin-top:10px; font-weight:700; color:var(--primary);
   }
-  .btnbar{
-    text-align:center;
-    margin:30px 0;
-  }
+  .btnbar{text-align:center; margin:30px 0;}
   button{
-    background:var(--primary);
-    color:#fff;
-    border:none;
-    padding:12px 28px;
-    border-radius:8px;
-    font-size:16px;
-    cursor:pointer;
-    margin:0 6px;
+    background:var(--primary); color:#fff; border:none;
+    padding:12px 26px; border-radius:8px; font-size:15px; cursor:pointer; margin:4px;
   }
   button:hover{background:#164539;}
   button.secondary{background:var(--accent);}
   button.secondary:hover{background:#a97f2c;}
-  .hint{
-    font-size:12px;
-    color:#888;
-    margin-top:4px;
+  button.add{
+    background:#eef0e8; color:var(--primary); border:1px dashed var(--primary);
+    font-size:13px; padding:6px 14px; margin-top:8px;
+  }
+  button.add:hover{background:#dfe6da;}
+  button.del{
+    background:#c94b3d; color:#fff; border:none; border-radius:5px;
+    padding:2px 8px; font-size:12px; cursor:pointer;
+  }
+  .hint{font-size:12px; color:#888; margin-top:4px;}
+  .badge{
+    display:inline-block; background:var(--primary); color:#fff;
+    padding:2px 10px; border-radius:12px; font-size:12px; margin-bottom:8px;
   }
   @media print{
     body{background:#fff; padding:0;}
-    .btnbar{display:none;}
-    .card{box-shadow:none; border:1px solid #999; page-break-inside:avoid;}
-    button{display:none;}
+    .btnbar, .add, .del{display:none;}
+    .card{box-shadow:none; border:1px solid #999; page-break-inside:avoid; margin-bottom:14px;}
   }
 </style>
 </head>
 <body>
 
 <h1>دراســة الجدوى الاقتصادية</h1>
-<div class="sub">إملأ الحقول أدناه، ثم اضغط "تحميل الدراسة" للحصول على نسخة PDF جاهزة</div>
+<div class="sub">إملأ جميع الاستمارات أدناه — يمكنك إضافة أي عدد من المنتجات أو المواد أو المنافسين — ثم حمّل النسخة النهائية PDF</div>
 
+<!-- استمارة 1 -->
 <div class="card">
-  <h2>بيانات عامة</h2>
+  <div class="badge">استمارة 1</div>
+  <h2>فكرة المشروع</h2>
   <div class="row2">
-    <div><label>اسم المشروع</label><input type="text" id="projName"></div>
-    <div><label>التاريخ</label><input type="text" id="projDate"></div>
+    <div><label>الاسم</label><input type="text" id="f1_name"></div>
+    <div><label>التاريخ</label><input type="text" id="f1_date"></div>
   </div>
-  <label>نوع المشروع</label>
-  <textarea id="projType"></textarea>
-  <label>موقع المشروع ومدى ملائمته للنشاط المقترح</label>
-  <textarea id="projLocation"></textarea>
+  <label>إحتياجات الزبون التي ستُغطى من قِبل المشروع (ماذا و أين و لمن؟)</label>
+  <textarea id="f1_needs" rows="4"></textarea>
+  <label>الهدف الاسمى الذي يشجع على تطوير فكرة المشروع؟</label>
+  <textarea id="f1_goal" rows="3"></textarea>
 </div>
 
+<!-- استمارة 2 آ -->
 <div class="card">
-  <h2>التكاليف الثابتة (شهرياً)</h2>
-  <table id="fixedCostsTable">
-    <thead><tr><th>ت</th><th>البند</th><th>القيمة شهرياً (دينار)</th><th>ملاحظات</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>الايجار</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
-      <tr><td>2</td><td>أجور الكهرباء</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
-      <tr><td>3</td><td>أجور العمال</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
-      <tr><td>4</td><td>أجور الهاتف والانترنت</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
-      <tr><td>5</td><td>تكاليف البيع والتسويق</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
-      <tr><td>6</td><td>قيمة قسط القرض</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
-      <tr><td>7</td><td>تكاليف ثابتة أخرى</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
+  <div class="badge">استمارة 2 آ</div>
+  <h2>المؤهلات الشخصية</h2>
+  <div class="row2">
+    <div><label>الاسم</label><input type="text" id="f2_name"></div>
+    <div><label>التاريخ</label><input type="text" id="f2_date"></div>
+  </div>
+  <label>محفّزات تأسيس هذا المشروع (لدى المؤسسين)</label>
+  <textarea id="f2_motiv" rows="3"></textarea>
+  <label>الخبرات والمهارات</label>
+  <textarea id="f2_skills" rows="3"></textarea>
+  <label>مستوى التعليم</label>
+  <textarea id="f2_edu" rows="2"></textarea>
+  <label>ما هي اللغات التي تجيدها كلاماً وكتابةً؟ (المقياس من 1-5، 5 جيد و1 ردئ)</label>
+  <textarea id="f2_lang" rows="2"></textarea>
+  <div class="row2">
+    <div><label>الجوانب الشخصية القوية ذات العلاقة بالمشروع حصراً</label><textarea id="f2_strong" rows="3"></textarea></div>
+    <div><label>الجوانب الشخصية الضعيفة ذات العلاقة بالمشروع حصراً</label><textarea id="f2_weak" rows="3"></textarea></div>
+  </div>
+</div>
+
+<!-- استمارة 2 ب -->
+<div class="card">
+  <div class="badge">استمارة 2 ب</div>
+  <h2>العلاقات (الشبكة)</h2>
+  <label>من يستطيع مساعدتك؟</label>
+  <textarea id="f2b_who" rows="2"></textarea>
+  <label>كيف يستطيعون مساعدتك؟</label>
+  <textarea id="f2b_how" rows="2"></textarea>
+  <label>لماذا يقومون بمساعدتك؟ (الفائدة المتبادلة)</label>
+  <textarea id="f2b_why" rows="2"></textarea>
+  <label>اتّصالات أخرى لها أهمية بالنسبة إلى فكرة مشروعك</label>
+  <textarea id="f2b_other" rows="2"></textarea>
+</div>
+
+<!-- استمارة 3: الأسواق/المنتجات (قابلة للإضافة) -->
+<div class="card">
+  <div class="badge">استمارة 3</div>
+  <h2>الأسواق / المنتجات</h2>
+  <table id="marketsTable">
+    <thead><tr><th>ت</th><th>المنتوجات/مجموعات السلع أو الخدمات</th><th>سعر الوحدة الواحدة</th><th>الأسواق (شرائح الزبائن)</th><th>البيع المتوقع في</th><th></th></tr></thead>
+    <tbody id="marketsBody"></tbody>
+  </table>
+  <button class="add" onclick="addMarketRow()">+ إضافة منتج/سوق جديد</button>
+  <div class="total-line"><span>المجموع</span><span id="marketsTotal">0</span></div>
+</div>
+
+<!-- استمارة 4 آ -->
+<div class="card">
+  <div class="badge">استمارة 4 آ</div>
+  <h2>الدوافع للشراء</h2>
+  <label>المنتجات/الخدمات (التي يقدمها المشروع)</label>
+  <textarea id="f4_products" rows="2"></textarea>
+  <label>الزبائن الذين نلبي احتياجاتهم / الأسواق</label>
+  <textarea id="f4_customers" rows="2"></textarea>
+  <table id="motivesTable">
+    <thead><tr><th>ت</th><th>المواصفات المهمة التي ينشدها الزبائن</th><th>الأهمية (1-5)</th><th>معدّل الدرجات من جميع المقابلات</th><th>الأولوية النهائية</th><th></th></tr></thead>
+    <tbody id="motivesBody"></tbody>
+  </table>
+  <button class="add" onclick="addMotiveRow()">+ إضافة مواصفة جديدة</button>
+</div>
+
+<!-- استمارة 4 ب -->
+<div class="card">
+  <div class="badge">استمارة 4 ب</div>
+  <h2>القوة التنافسية</h2>
+  <div class="row3">
+    <div>
+      <h3>المنافسون الموجودون الآن</h3>
+      <textarea id="f4b_current" rows="6" placeholder="أسماء المنافسين والنسب التقريبية المئوية لحصتهم في السوق"></textarea>
+    </div>
+    <div>
+      <h3>القوة التنافسية</h3>
+      <textarea id="f4b_strength" rows="6" placeholder="1- صف الوضع التنافسي لمنتجاتك/خدماتك: قوي، وسط أو ضعيف.&#10;2- اذكر أسماء المنافسين الذين سيشكلون أكبر تهديد لك في السنتين القادمتين.&#10;3- صف بكلمة واحدة معبّرة التهديد الذي يمثله هؤلاء المنافسين"></textarea>
+    </div>
+    <div>
+      <h3>منافسون جدد</h3>
+      <textarea id="f4b_new" rows="6" placeholder="من هم المنافسون الجدد المتوقعون، وما هو التهديد الذي سيمثلونه في السوق"></textarea>
+    </div>
+  </div>
+  <label>البدائل — هل توجد منتوجات أخرى/جديدة قد تجعل منتوجاتك وخدماتك غير ضرورية؟</label>
+  <textarea id="f4b_alt" rows="3"></textarea>
+</div>
+
+<!-- استمارة 5 آ: تقدير الربحية لكل منتج (قابلة للإضافة) -->
+<div class="card">
+  <div class="badge">استمارة 5 آ</div>
+  <h2>تقدير الربحية (المكاسب) شهرياً — حساب التكاليف المتغيرة</h2>
+  <table id="profitTable">
+    <thead>
+      <tr>
+        <th>ت</th><th>اسم المنتوج</th>
+        <th>1. السعر الصافي للسلعة</th>
+        <th>2. تكاليف البيع والتوزيع</th>
+        <th>3. سعر المفرّق</th>
+        <th>4. تكاليف المواد الأولية</th>
+        <th>6. تكاليف إنتاج أخرى</th>
+        <th>7. المبلغ المتبقي من سعر البيع</th>
+        <th>عدد المبيعات شهرياً</th>
+        <th>مجموع النسب الربحية</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="profitBody"></tbody>
+  </table>
+  <button class="add" onclick="addProfitRow()">+ إضافة منتج جديد</button>
+  <div class="total-line"><span>المجموع الكلي للنسب الربحية</span><span id="profitTotal">0</span></div>
+</div>
+
+<!-- استمارة 5 ب: الاستثمارات (قابلة للإضافة) -->
+<div class="card">
+  <div class="badge">استمارة 5 ب</div>
+  <h2>إستثمارات المشروع</h2>
+  <table id="investTable">
+    <thead><tr><th>البند</th><th>مبالغ الاستثمار الضرورية والمطلوب توفيرها</th><th>الأملاك والأموال المتوفرة لدى صاحب المشروع</th><th>ملاحظات</th></tr></thead>
+    <tbody id="investBody">
+      <tr><td>البنية التحتية (الماء والطرق والمجاري...الخ)</td><td><input type="number" class="inv" value="0"></td><td><input type="number" class="inv-own" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>المباني</td><td><input type="number" class="inv" value="0"></td><td><input type="number" class="inv-own" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>مكائن الإنتاج</td><td><input type="number" class="inv" value="0"></td><td><input type="number" class="inv-own" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>عربات نقل</td><td><input type="number" class="inv" value="0"></td><td><input type="number" class="inv-own" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>أثاث ومعدات للمكتب</td><td><input type="number" class="inv" value="0"></td><td><input type="number" class="inv-own" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>التسجيلات والتوثيقات والتأمين/الحماية</td><td><input type="number" class="inv" value="0"></td><td><input type="number" class="inv-own" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>تكاليف البدء بالعمل</td><td><input type="number" class="inv" value="0"></td><td><input type="number" class="inv-own" value="0"></td><td><input type="text"></td></tr>
     </tbody>
   </table>
-  <div class="total-line"><span>المجموع الكلي للتكاليف الثابتة</span><span id="fcTotal">0</span></div>
+  <button class="add" onclick="addInvestRow()">+ إضافة بند استثمار جديد</button>
+  <div class="total-line"><span>المجموع الكلي للاستثمار</span><span id="investTotal">0</span></div>
+  <div class="total-line"><span>رأس المال الخاص (المجموع)</span><span id="investOwnTotal">0</span></div>
+  <div class="total-line" style="background:#fbf3e2;"><span>احتياجات الاستثمار (مبلغ القرض المطلوب توفيره)</span><span id="loanNeeded">0</span></div>
+  <div class="row3" style="margin-top:14px;">
+    <div><label>فترة تسديد القرض</label><input type="text" id="loanTerm"></div>
+    <div><label>الجهة المانحة للقرض</label><input type="text" id="loanBody"></div>
+    <div><label>الفائدة في السنة الأولى (% شهرياً)</label><input type="number" id="loanInterest" value="0"></div>
+  </div>
 </div>
 
+<!-- استمارة 5 ج: التكاليف الثابتة (قابلة للإضافة) -->
 <div class="card">
-  <h2>احتساب مقدار المبيعات المتوقعة شهرياً</h2>
-  <table id="salesTable">
+  <div class="badge">استمارة 5 ج</div>
+  <h2>التكاليف الثابتة الشهرية على مدى السنة</h2>
+  <table id="fcTable">
+    <thead><tr><th>ت</th><th>البند</th><th>القيمة شهرياً (دينار)</th><th>ملاحظات</th><th></th></tr></thead>
+    <tbody id="fcBody">
+      <tr><td>1</td><td>الرواتب الثابتة للعمال/الموظفين</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>2</td><td>أجار المبنى</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>3</td><td>أستهلاكات الاستثمارات</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>4</td><td>أستهلاك المباني</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>5</td><td>الفائدة على القرض</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>6</td><td>التلفون والجوال</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td><td></td></tr>
+    </tbody>
+  </table>
+  <button class="add" onclick="addFcRow()">+ إضافة تكلفة ثابتة جديدة</button>
+  <div class="total-line"><span>مجموع التكاليف الثابتة</span><span id="fcTotal">0</span></div>
+  <div class="total-line"><span>مجموع الأرباح (من استمارة 5 آ)</span><span id="fc_profits">0</span></div>
+  <div class="total-line" style="background:#e7f3ec;"><span>الربح قبل الضرائب</span><span id="beforeTax">0</span></div>
+</div>
+
+<!-- استمارة 6 -->
+<div class="card">
+  <div class="badge">استمارة 6</div>
+  <h2>الأنظمة والتكنولوجيا الضرورية</h2>
+  <label>القوانين والأنظمة التي سيكون لها تأثير على فكرة المشروع</label>
+  <textarea id="f6_laws" rows="4"></textarea>
+  <label>التكنولوجيا والمعرفة المهمة للمشروع</label>
+  <textarea id="f6_tech" rows="4"></textarea>
+</div>
+
+<!-- دراسة الجدوى الاقتصادية النهائية -->
+<div class="card">
+  <div class="badge">الملخص النهائي</div>
+  <h2>دراسة الجدوى الاقتصادية</h2>
+  <div class="row2">
+    <div><label>نوع المشروع</label><textarea id="fs_type" rows="2"></textarea></div>
+    <div><label>موقع المشروع ومدى ملائمته للنشاط المقترح</label><textarea id="fs_loc" rows="2"></textarea></div>
+  </div>
+
+  <h3>التكاليف الثابتة</h3>
+  <table id="fsFixedTable">
+    <thead><tr><th>ت</th><th>المواد الثابتة</th><th>قيمتها شهرياً (دينار)</th><th>ملاحظات</th><th></th></tr></thead>
+    <tbody id="fsFixedBody">
+      <tr><td>1</td><td>الايجار</td><td><input type="number" class="fsfc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>2</td><td>أجور الكهرباء</td><td><input type="number" class="fsfc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>3</td><td>أجور العمال</td><td><input type="number" class="fsfc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>4</td><td>أجور الهاتف والانترنت</td><td><input type="number" class="fsfc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>5</td><td>تكاليف البيع والتسويق</td><td><input type="number" class="fsfc" value="0"></td><td><input type="text"></td><td></td></tr>
+      <tr><td>6</td><td>قيمة قسط القرض</td><td><input type="number" class="fsfc" value="0"></td><td><input type="text"></td><td></td></tr>
+    </tbody>
+  </table>
+  <button class="add" onclick="addFsFixedRow()">+ إضافة تكلفة ثابتة جديدة</button>
+  <div class="total-line"><span>المجموع الكلي</span><span id="fsFixedTotal">0</span></div>
+
+  <h3 style="margin-top:20px;">احتساب مقدار المبيعات المتوقعة شهرياً</h3>
+  <table id="fsSalesTable">
     <thead>
       <tr>
         <th>ت</th><th>المنتج المباع</th><th>سعر البيع (أ)</th><th>كلفة المواد الأولية (ب)</th>
-        <th>سعر القطعة مطروحاً منه كلفة المواد (ج=أ-ب)</th><th>عدد القطع المباعة شهرياً (د)</th><th>المبلغ الصافي (ج×د)</th>
+        <th>ج = (أ−ب)</th><th>عدد القطع المباعة شهرياً (د)</th><th>المبلغ الصافي (ج×د)</th><th></th>
       </tr>
     </thead>
-    <tbody id="salesBody">
-    </tbody>
+    <tbody id="fsSalesBody"></tbody>
   </table>
-  <div class="total-line"><span>المجموع الكلي الشهري للمبيعات</span><span id="salesTotal">0</span></div>
-</div>
+  <button class="add" onclick="addFsSalesRow()">+ إضافة منتج جديد</button>
+  <div class="total-line"><span>المجموع الكلي الشهري</span><span id="fsSalesTotal">0</span></div>
 
-<div class="card">
-  <h2>صافي الأرباح</h2>
-  <div class="total-line"><span>المجموع الكلي للمبيعات</span><span id="p1">0</span></div>
-  <div class="total-line"><span>مجموع التكاليف الثابتة</span><span id="p2">0</span></div>
-  <div class="total-line" style="background:#e7f3ec;"><span>صافي الأرباح = المبيعات − التكاليف الثابتة</span><span id="netProfit">0</span></div>
-</div>
+  <div class="total-line" style="background:#e7f3ec; margin-top:16px;">
+    <span>صافي الأرباح = المجموع الكلي للمبيعات − مجموع التكاليف الثابتة</span>
+    <span id="fsNetProfit">0</span>
+  </div>
 
-<div class="card">
-  <h2>متطلبات المشروع (رأس المال / الاستثمار)</h2>
-  <table id="reqTable">
-    <thead><tr><th>ت</th><th>اسم المادة</th><th>قيمة المبلغ (دينار عراقي)</th><th>ملاحظات</th></tr></thead>
-    <tbody id="reqBody"></tbody>
+  <h3 style="margin-top:20px;">متطلبات المشروع</h3>
+  <table id="fsReqTable">
+    <thead><tr><th>ت</th><th>اسم المادة</th><th>قيمة المبلغ (دينار عراقي)</th><th>ملاحظات</th><th></th></tr></thead>
+    <tbody id="fsReqBody"></tbody>
   </table>
-  <div class="total-line"><span>المجموع الكلي لمتطلبات المشروع</span><span id="reqTotal">0</span></div>
-  <div class="total-line" style="background:#fbf3e2;"><span>المبلغ الكلي للقرض المطلوب</span><span id="loanTotal">0</span></div>
+  <button class="add" onclick="addFsReqRow()">+ إضافة مادة جديدة</button>
+  <div class="total-line"><span>المجموع الكلي</span><span id="fsReqTotal">0</span></div>
+  <div class="total-line" style="background:#fbf3e2;"><span>المبلغ الكلي للقرض وفقاً لمتطلبات المشروع</span><span id="fsLoanTotal">0</span></div>
 </div>
 
 <div class="btnbar">
-  <button onclick="calcAll()">تحديث الحسابات</button>
+  <button onclick="calcAll()">🔄 تحديث الحسابات</button>
   <button class="secondary" onclick="downloadPDF()">⬇ تحميل الدراسة PDF</button>
 </div>
 
 <script>
-function addRows(tbodyId, count, cols){
-  const tbody = document.getElementById(tbodyId);
-  for(let i=1;i<=count;i++){
-    const tr = document.createElement('tr');
-    let html = `<td>${i}</td>`;
-    cols.forEach(c=>{
-      if(c==='name') html += `<td><input type="text"></td>`;
-      else if(c==='calc') html += `<td class="calcCell">0</td>`;
-      else html += `<td><input type="number" class="${c}" value="0"></td>`;
-    });
-    tr.innerHTML = html;
-    tbody.appendChild(tr);
-  }
-}
-// sales table rows: name, price(a), cost(b), calc(c), qty(d), calc(net)
-const salesBody = document.getElementById('salesBody');
-for(let i=1;i<=5;i++){
+let counters = {market:0, motive:0, profit:0, fc:0, fsfixed:0, fssales:0, fsreq:0};
+
+function delRow(btn){ btn.closest('tr').remove(); calcAll(); }
+
+/* ---------- استمارة 3: الأسواق ---------- */
+function addMarketRow(){
+  counters.market++;
   const tr = document.createElement('tr');
-  tr.innerHTML = `<td>${i}</td>
-    <td><input type="text" class="s-name"></td>
-    <td><input type="number" class="s-a" value="0"></td>
-    <td><input type="number" class="s-b" value="0"></td>
-    <td class="s-c">0</td>
-    <td><input type="number" class="s-d" value="0"></td>
-    <td class="s-net">0</td>`;
-  salesBody.appendChild(tr);
+  tr.innerHTML = `<td>${counters.market}</td>
+    <td><input type="text" placeholder="اسم المنتج/السلعة"></td>
+    <td><input type="number" class="mkt-price" value="0"></td>
+    <td><input type="text" placeholder="الأسواق/شرائح الزبائن"></td>
+    <td><input type="number" class="mkt-sale" value="0"></td>
+    <td><button class="del" onclick="delRow(this)">حذف</button></td>`;
+  document.getElementById('marketsBody').appendChild(tr);
 }
-addRows('reqBody', 6, ['name','val']);
+addMarketRow(); addMarketRow();
+
+/* ---------- استمارة 4 آ: الدوافع ---------- */
+function addMotiveRow(){
+  counters.motive++;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${counters.motive}</td>
+    <td><input type="text"></td>
+    <td><input type="number" min="1" max="5" value="0"></td>
+    <td><input type="number" value="0"></td>
+    <td><input type="text"></td>
+    <td><button class="del" onclick="delRow(this)">حذف</button></td>`;
+  document.getElementById('motivesBody').appendChild(tr);
+}
+addMotiveRow(); addMotiveRow(); addMotiveRow();
+
+/* ---------- استمارة 5 آ: الربحية ---------- */
+function addProfitRow(){
+  counters.profit++;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${counters.profit}</td>
+    <td><input type="text" class="pr-name"></td>
+    <td><input type="number" class="pr-1" value="0"></td>
+    <td><input type="number" class="pr-2" value="0"></td>
+    <td><input type="number" class="pr-3" value="0"></td>
+    <td><input type="number" class="pr-4" value="0"></td>
+    <td><input type="number" class="pr-6" value="0"></td>
+    <td class="pr-7">0</td>
+    <td><input type="number" class="pr-qty" value="0"></td>
+    <td class="pr-total">0</td>
+    <td><button class="del" onclick="delRow(this)">حذف</button></td>`;
+  document.getElementById('profitBody').appendChild(tr);
+}
+addProfitRow(); addProfitRow();
+
+/* ---------- استمارة 5 ب: الاستثمارات ---------- */
+function addInvestRow(){
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><input type="text" placeholder="بند استثمار آخر"></td>
+    <td><input type="number" class="inv" value="0"></td>
+    <td><input type="number" class="inv-own" value="0"></td>
+    <td><input type="text"></td>`;
+  const btnCell = document.createElement('td');
+  btnCell.innerHTML = `<button class="del" onclick="delRow(this)">حذف</button>`;
+  tr.appendChild(btnCell);
+  document.getElementById('investBody').appendChild(tr);
+}
+
+/* ---------- استمارة 5 ج: التكاليف الثابتة ---------- */
+function addFcRow(){
+  counters.fc++;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${counters.fc + 6}</td>
+    <td><input type="text" placeholder="بند تكلفة ثابتة آخر"></td>
+    <td><input type="number" class="fc" value="0"></td>
+    <td><input type="text"></td>
+    <td><button class="del" onclick="delRow(this)">حذف</button></td>`;
+  document.getElementById('fcBody').appendChild(tr);
+}
+
+/* ---------- الملخص النهائي: التكاليف الثابتة ---------- */
+function addFsFixedRow(){
+  counters.fsfixed++;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${counters.fsfixed + 6}</td>
+    <td><input type="text" placeholder="بند تكلفة ثابتة آخر"></td>
+    <td><input type="number" class="fsfc" value="0"></td>
+    <td><input type="text"></td>
+    <td><button class="del" onclick="delRow(this)">حذف</button></td>`;
+  document.getElementById('fsFixedBody').appendChild(tr);
+}
+
+/* ---------- الملخص النهائي: المبيعات ---------- */
+function addFsSalesRow(){
+  counters.fssales++;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${counters.fssales}</td>
+    <td><input type="text" class="fss-name"></td>
+    <td><input type="number" class="fss-a" value="0"></td>
+    <td><input type="number" class="fss-b" value="0"></td>
+    <td class="fss-c">0</td>
+    <td><input type="number" class="fss-d" value="0"></td>
+    <td class="fss-net">0</td>
+    <td><button class="del" onclick="delRow(this)">حذف</button></td>`;
+  document.getElementById('fsSalesBody').appendChild(tr);
+}
+addFsSalesRow(); addFsSalesRow(); addFsSalesRow();
+
+/* ---------- الملخص النهائي: متطلبات المشروع ---------- */
+function addFsReqRow(){
+  counters.fsreq++;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${counters.fsreq}</td>
+    <td><input type="text" class="fsreq-name"></td>
+    <td><input type="number" class="fsreq-val" value="0"></td>
+    <td><input type="text"></td>
+    <td><button class="del" onclick="delRow(this)">حذف</button></td>`;
+  document.getElementById('fsReqBody').appendChild(tr);
+}
+addFsReqRow(); addFsReqRow(); addFsReqRow(); addFsReqRow();
+
+/* ---------- الحسابات ---------- */
+function num(v){ return parseFloat(v)||0; }
+function fmt(v){ return v.toLocaleString(); }
 
 function calcAll(){
-  // fixed costs
-  let fcTotal = 0;
-  document.querySelectorAll('.fc').forEach(i=>fcTotal += parseFloat(i.value)||0);
-  document.getElementById('fcTotal').textContent = fcTotal.toLocaleString();
+  // استمارة 3
+  let mTotal=0;
+  document.querySelectorAll('.mkt-sale').forEach(i=>mTotal+=num(i.value));
+  document.getElementById('marketsTotal').textContent = fmt(mTotal);
 
-  // sales
-  let salesTotal = 0;
-  document.querySelectorAll('#salesBody tr').forEach(tr=>{
-    const a = parseFloat(tr.querySelector('.s-a').value)||0;
-    const b = parseFloat(tr.querySelector('.s-b').value)||0;
-    const d = parseFloat(tr.querySelector('.s-d').value)||0;
-    const c = a-b;
-    const net = c*d;
-    tr.querySelector('.s-c').textContent = c.toLocaleString();
-    tr.querySelector('.s-net').textContent = net.toLocaleString();
-    salesTotal += net;
+  // استمارة 5 آ (تقدير الربحية)
+  let profitGrand = 0;
+  document.querySelectorAll('#profitBody tr').forEach(tr=>{
+    const p1=num(tr.querySelector('.pr-1').value);
+    const p2=num(tr.querySelector('.pr-2').value);
+    const p3=num(tr.querySelector('.pr-3').value);
+    const p4=num(tr.querySelector('.pr-4').value);
+    const p6=num(tr.querySelector('.pr-6').value);
+    const p7 = p3 - p4 - p6; // المبلغ المتبقي من سعر البيع (تقريبي حسب الاستمارة)
+    tr.querySelector('.pr-7').textContent = fmt(p7);
+    const qty = num(tr.querySelector('.pr-qty').value);
+    const rowTotal = p7*qty;
+    tr.querySelector('.pr-total').textContent = fmt(rowTotal);
+    profitGrand += rowTotal;
   });
-  document.getElementById('salesTotal').textContent = salesTotal.toLocaleString();
+  document.getElementById('profitTotal').textContent = fmt(profitGrand);
+  document.getElementById('fc_profits').textContent = fmt(profitGrand);
 
-  // profit
-  document.getElementById('p1').textContent = salesTotal.toLocaleString();
-  document.getElementById('p2').textContent = fcTotal.toLocaleString();
-  document.getElementById('netProfit').textContent = (salesTotal-fcTotal).toLocaleString();
+  // استمارة 5 ب (استثمارات)
+  let invTotal=0, invOwnTotal=0;
+  document.querySelectorAll('.inv').forEach(i=>invTotal+=num(i.value));
+  document.querySelectorAll('.inv-own').forEach(i=>invOwnTotal+=num(i.value));
+  document.getElementById('investTotal').textContent = fmt(invTotal);
+  document.getElementById('investOwnTotal').textContent = fmt(invOwnTotal);
+  document.getElementById('loanNeeded').textContent = fmt(invTotal-invOwnTotal);
 
-  // requirements
-  let reqTotal = 0;
-  document.querySelectorAll('#reqBody .val').forEach(i=>reqTotal += parseFloat(i.value)||0);
-  document.getElementById('reqTotal').textContent = reqTotal.toLocaleString();
-  document.getElementById('loanTotal').textContent = reqTotal.toLocaleString();
+  // استمارة 5 ج (التكاليف الثابتة)
+  let fcTotal=0;
+  document.querySelectorAll('.fc').forEach(i=>fcTotal+=num(i.value));
+  document.getElementById('fcTotal').textContent = fmt(fcTotal);
+  document.getElementById('beforeTax').textContent = fmt(profitGrand - fcTotal);
+
+  // الملخص النهائي - تكاليف ثابتة
+  let fsFcTotal=0;
+  document.querySelectorAll('.fsfc').forEach(i=>fsFcTotal+=num(i.value));
+  document.getElementById('fsFixedTotal').textContent = fmt(fsFcTotal);
+
+  // الملخص النهائي - مبيعات
+  let fsSalesTotal=0;
+  document.querySelectorAll('#fsSalesBody tr').forEach(tr=>{
+    const a=num(tr.querySelector('.fss-a').value);
+    const b=num(tr.querySelector('.fss-b').value);
+    const c=a-b;
+    const d=num(tr.querySelector('.fss-d').value);
+    const net=c*d;
+    tr.querySelector('.fss-c').textContent=fmt(c);
+    tr.querySelector('.fss-net').textContent=fmt(net);
+    fsSalesTotal+=net;
+  });
+  document.getElementById('fsSalesTotal').textContent = fmt(fsSalesTotal);
+  document.getElementById('fsNetProfit').textContent = fmt(fsSalesTotal - fsFcTotal);
+
+  // الملخص النهائي - متطلبات المشروع
+  let fsReqTotal=0;
+  document.querySelectorAll('.fsreq-val').forEach(i=>fsReqTotal+=num(i.value));
+  document.getElementById('fsReqTotal').textContent = fmt(fsReqTotal);
+  document.getElementById('fsLoanTotal').textContent = fmt(fsReqTotal);
 }
 
 document.addEventListener('input', calcAll);
