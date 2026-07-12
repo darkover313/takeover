@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>دراسة الجدوى الاقتصادية</title>
+<style>
+  :root{
+    --primary:#1f5f4f;
+    --accent:#c99a3d;
+    --bg:#f6f4ef;
+    --card:#ffffff;
+    --border:#d8d2c2;
+    --text:#2b2b26;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Segoe UI", Tahoma, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    margin:0;
+    padding:24px;
+    line-height:1.6;
+  }
+  h1{
+    text-align:center;
+    color:var(--primary);
+    margin-bottom:4px;
+  }
+  .sub{
+    text-align:center;
+    color:#777;
+    margin-bottom:24px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:20px;
+    margin:0 auto 24px auto;
+    max-width:1000px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  }
+  h2{
+    color:var(--primary);
+    border-bottom:2px solid var(--accent);
+    padding-bottom:8px;
+    margin-top:0;
+  }
+  label{
+    display:block;
+    font-weight:600;
+    margin:10px 0 4px;
+    font-size:14px;
+  }
+  input[type=text], input[type=number], textarea{
+    width:100%;
+    padding:8px 10px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    font-family:inherit;
+    font-size:14px;
+    background:#fffdf9;
+  }
+  textarea{resize:vertical; min-height:50px;}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+  }
+  th, td{
+    border:1px solid var(--border);
+    padding:6px;
+    text-align:center;
+    font-size:13px;
+  }
+  th{background:#eef0e8; color:var(--primary);}
+  td input{border:none; background:transparent; text-align:center; width:100%;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;}
+  .total-line{
+    display:flex;
+    justify-content:space-between;
+    background:#f1efe4;
+    padding:10px 14px;
+    border-radius:6px;
+    margin-top:10px;
+    font-weight:700;
+    color:var(--primary);
+  }
+  .btnbar{
+    text-align:center;
+    margin:30px 0;
+  }
+  button{
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    padding:12px 28px;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    margin:0 6px;
+  }
+  button:hover{background:#164539;}
+  button.secondary{background:var(--accent);}
+  button.secondary:hover{background:#a97f2c;}
+  .hint{
+    font-size:12px;
+    color:#888;
+    margin-top:4px;
+  }
+  @media print{
+    body{background:#fff; padding:0;}
+    .btnbar{display:none;}
+    .card{box-shadow:none; border:1px solid #999; page-break-inside:avoid;}
+    button{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<h1>دراســة الجدوى الاقتصادية</h1>
+<div class="sub">إملأ الحقول أدناه، ثم اضغط "تحميل الدراسة" للحصول على نسخة PDF جاهزة</div>
+
+<div class="card">
+  <h2>بيانات عامة</h2>
+  <div class="row2">
+    <div><label>اسم المشروع</label><input type="text" id="projName"></div>
+    <div><label>التاريخ</label><input type="text" id="projDate"></div>
+  </div>
+  <label>نوع المشروع</label>
+  <textarea id="projType"></textarea>
+  <label>موقع المشروع ومدى ملائمته للنشاط المقترح</label>
+  <textarea id="projLocation"></textarea>
+</div>
+
+<div class="card">
+  <h2>التكاليف الثابتة (شهرياً)</h2>
+  <table id="fixedCostsTable">
+    <thead><tr><th>ت</th><th>البند</th><th>القيمة شهرياً (دينار)</th><th>ملاحظات</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>الايجار</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>2</td><td>أجور الكهرباء</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>3</td><td>أجور العمال</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>4</td><td>أجور الهاتف والانترنت</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>5</td><td>تكاليف البيع والتسويق</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>6</td><td>قيمة قسط القرض</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
+      <tr><td>7</td><td>تكاليف ثابتة أخرى</td><td><input type="number" class="fc" value="0"></td><td><input type="text"></td></tr>
+    </tbody>
+  </table>
+  <div class="total-line"><span>المجموع الكلي للتكاليف الثابتة</span><span id="fcTotal">0</span></div>
+</div>
+
+<div class="card">
+  <h2>احتساب مقدار المبيعات المتوقعة شهرياً</h2>
+  <table id="salesTable">
+    <thead>
+      <tr>
+        <th>ت</th><th>المنتج المباع</th><th>سعر البيع (أ)</th><th>كلفة المواد الأولية (ب)</th>
+        <th>سعر القطعة مطروحاً منه كلفة المواد (ج=أ-ب)</th><th>عدد القطع المباعة شهرياً (د)</th><th>المبلغ الصافي (ج×د)</th>
+      </tr>
+    </thead>
+    <tbody id="salesBody">
+    </tbody>
+  </table>
+  <div class="total-line"><span>المجموع الكلي الشهري للمبيعات</span><span id="salesTotal">0</span></div>
+</div>
+
+<div class="card">
+  <h2>صافي الأرباح</h2>
+  <div class="total-line"><span>المجموع الكلي للمبيعات</span><span id="p1">0</span></div>
+  <div class="total-line"><span>مجموع التكاليف الثابتة</span><span id="p2">0</span></div>
+  <div class="total-line" style="background:#e7f3ec;"><span>صافي الأرباح = المبيعات − التكاليف الثابتة</span><span id="netProfit">0</span></div>
+</div>
+
+<div class="card">
+  <h2>متطلبات المشروع (رأس المال / الاستثمار)</h2>
+  <table id="reqTable">
+    <thead><tr><th>ت</th><th>اسم المادة</th><th>قيمة المبلغ (دينار عراقي)</th><th>ملاحظات</th></tr></thead>
+    <tbody id="reqBody"></tbody>
+  </table>
+  <div class="total-line"><span>المجموع الكلي لمتطلبات المشروع</span><span id="reqTotal">0</span></div>
+  <div class="total-line" style="background:#fbf3e2;"><span>المبلغ الكلي للقرض المطلوب</span><span id="loanTotal">0</span></div>
+</div>
+
+<div class="btnbar">
+  <button onclick="calcAll()">تحديث الحسابات</button>
+  <button class="secondary" onclick="downloadPDF()">⬇ تحميل الدراسة PDF</button>
+</div>
+
+<script>
+function addRows(tbodyId, count, cols){
+  const tbody = document.getElementById(tbodyId);
+  for(let i=1;i<=count;i++){
+    const tr = document.createElement('tr');
+    let html = `<td>${i}</td>`;
+    cols.forEach(c=>{
+      if(c==='name') html += `<td><input type="text"></td>`;
+      else if(c==='calc') html += `<td class="calcCell">0</td>`;
+      else html += `<td><input type="number" class="${c}" value="0"></td>`;
+    });
+    tr.innerHTML = html;
+    tbody.appendChild(tr);
+  }
+}
+// sales table rows: name, price(a), cost(b), calc(c), qty(d), calc(net)
+const salesBody = document.getElementById('salesBody');
+for(let i=1;i<=5;i++){
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${i}</td>
+    <td><input type="text" class="s-name"></td>
+    <td><input type="number" class="s-a" value="0"></td>
+    <td><input type="number" class="s-b" value="0"></td>
+    <td class="s-c">0</td>
+    <td><input type="number" class="s-d" value="0"></td>
+    <td class="s-net">0</td>`;
+  salesBody.appendChild(tr);
+}
+addRows('reqBody', 6, ['name','val']);
+
+function calcAll(){
+  // fixed costs
+  let fcTotal = 0;
+  document.querySelectorAll('.fc').forEach(i=>fcTotal += parseFloat(i.value)||0);
+  document.getElementById('fcTotal').textContent = fcTotal.toLocaleString();
+
+  // sales
+  let salesTotal = 0;
+  document.querySelectorAll('#salesBody tr').forEach(tr=>{
+    const a = parseFloat(tr.querySelector('.s-a').value)||0;
+    const b = parseFloat(tr.querySelector('.s-b').value)||0;
+    const d = parseFloat(tr.querySelector('.s-d').value)||0;
+    const c = a-b;
+    const net = c*d;
+    tr.querySelector('.s-c').textContent = c.toLocaleString();
+    tr.querySelector('.s-net').textContent = net.toLocaleString();
+    salesTotal += net;
+  });
+  document.getElementById('salesTotal').textContent = salesTotal.toLocaleString();
+
+  // profit
+  document.getElementById('p1').textContent = salesTotal.toLocaleString();
+  document.getElementById('p2').textContent = fcTotal.toLocaleString();
+  document.getElementById('netProfit').textContent = (salesTotal-fcTotal).toLocaleString();
+
+  // requirements
+  let reqTotal = 0;
+  document.querySelectorAll('#reqBody .val').forEach(i=>reqTotal += parseFloat(i.value)||0);
+  document.getElementById('reqTotal').textContent = reqTotal.toLocaleString();
+  document.getElementById('loanTotal').textContent = reqTotal.toLocaleString();
+}
+
+document.addEventListener('input', calcAll);
+calcAll();
+
+function downloadPDF(){
+  calcAll();
+  window.print();
+}
+</script>
+
+</body>
+</html>
