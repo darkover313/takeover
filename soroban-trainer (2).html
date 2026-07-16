@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f0e17">
+<title>مسرعة الذهن | تدريب الحساب الذهني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0e17;
+    --bg2:#151322;
+    --panel:#1b1830;
+    --panel-2:#211d38;
+    --rail:#2a2545;
+    --bead:#d4a039;
+    --bead-light:#f0c56b;
+    --bead-dark:#8a611f;
+    --accent2:#c0392b;
+    --accent2-light:#e2665a;
+    --text:#f4efe4;
+    --muted:#9b95ad;
+    --good:#5fb87a;
+    --bad:#e2665a;
+    --radius:14px;
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-t: env(safe-area-inset-top, 0px);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;-webkit-text-size-adjust:100%;}
+  body{
+    background:
+      radial-gradient(1200px 700px at 15% -10%, #241f3d 0%, transparent 60%),
+      radial-gradient(1000px 600px at 100% 10%, #2a1a22 0%, transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Tajawal',sans-serif;
+    min-height:100vh;
+    padding:calc(20px + var(--safe-t)) 14px calc(50px + var(--safe-b));
+    overflow-x:hidden;
+  }
+  .wrap{max-width:880px;margin:0 auto;width:100%;}
+
+  .brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:6px;}
+  .abacus-mark{width:38px;height:38px;flex:0 0 auto;}
+  h1{
+    font-family:'Cairo',sans-serif;font-weight:900;
+    font-size:clamp(22px,6vw,32px);margin:0;letter-spacing:0.3px;
+    background:linear-gradient(90deg,var(--bead-light),var(--bead));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tagline{text-align:center;color:var(--muted);font-size:13px;margin:0 0 24px;padding:0 6px;}
+
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid #322c4f;border-radius:var(--radius);
+    padding:18px;box-shadow:0 20px 40px -20px rgba(0,0,0,0.6);margin-bottom:16px;
+  }
+  .rail{height:5px;border-radius:3px;
+    background:linear-gradient(90deg,var(--bead-dark),var(--bead),var(--bead-dark));
+    margin:10px 0 18px;box-shadow:0 2px 6px rgba(212,160,57,0.35);}
+
+  /* category cards */
+  .cat-list{display:flex;flex-direction:column;gap:10px;}
+  .cat-btn{
+    background:var(--rail);border:1px solid #3a3460;border-radius:12px;
+    padding:14px 16px;cursor:pointer;text-align:right;
+    display:flex;align-items:center;gap:14px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .cat-btn:active{transform:scale(0.99);}
+  .cat-btn .letter{
+    font-family:'Cairo',sans-serif;font-weight:900;font-size:26px;
+    width:44px;height:44px;flex:0 0 auto;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--bg2);color:var(--bead-light);border:1px solid #3a3460;
+  }
+  .cat-btn .info{flex:1;min-width:0;}
+  .cat-btn .info .t{font-family:'Cairo',sans-serif;font-weight:800;font-size:15px;margin-bottom:2px;}
+  .cat-btn .info .r{font-size:12.5px;color:var(--muted);line-height:1.5;}
+  .cat-btn .info .a{font-size:11.5px;color:var(--bead-light);margin-top:3px;}
+  .cat-btn.active{border-color:var(--bead);background:linear-gradient(180deg,#2c2650,#241f42);}
+  .cat-btn.active .letter{background:linear-gradient(160deg,var(--bead-light),var(--bead));color:#1c1305;border-color:var(--bead-light);}
+
+  /* time control - the only setting */
+  .time-field{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    background:var(--bg2);border:1px solid #362f57;border-radius:12px;padding:12px 14px;
+  }
+  .time-field label{font-size:14px;color:var(--text);font-family:'Cairo',sans-serif;font-weight:700;}
+  .stepper{display:flex;align-items:center;gap:10px;}
+  .step-btn{
+    width:40px;height:40px;border-radius:10px;border:1px solid #3a3460;background:var(--rail);
+    color:var(--bead-light);font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;user-select:none;
+  }
+  .step-btn:active{background:var(--bead);color:#1c1305;}
+  #timeMinutes{
+    width:56px;text-align:center;background:transparent;border:none;color:var(--text);
+    font-family:'Cairo',sans-serif;font-weight:800;font-size:20px;
+  }
+  .time-hint{font-size:11.5px;color:var(--muted);margin-top:8px;text-align:center;}
+
+  .start-btn{
+    display:block;width:100%;margin-top:20px;
+    background:linear-gradient(160deg,var(--bead-light),var(--bead) 60%,var(--bead-dark));
+    color:#211405;border:none;border-radius:12px;padding:16px;
+    font-size:17px;font-weight:800;font-family:'Cairo',sans-serif;cursor:pointer;
+    box-shadow:0 12px 24px -10px rgba(212,160,57,0.6);
+  }
+  .start-btn:active{transform:scale(0.98);}
+  .start-btn:disabled{opacity:.5;}
+
+  /* quiz screen */
+  #quizScreen{display:none;}
+  .quiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap;}
+  .progress-pill{
+    background:var(--rail);border:1px solid #3a3460;border-radius:999px;
+    padding:6px 14px;font-size:12.5px;color:var(--muted);font-family:'Cairo',sans-serif;white-space:nowrap;
+  }
+  .progress-pill b{color:var(--bead-light);}
+  .session-timer{
+    display:flex;align-items:center;gap:8px;background:var(--rail);border:1px solid #3a3460;
+    border-radius:999px;padding:6px 14px;font-family:'Cairo',sans-serif;font-weight:800;font-size:15px;
+  }
+  .session-timer .dot{width:8px;height:8px;border-radius:50%;background:var(--good);}
+  .session-timer.warn .dot{background:var(--bead);}
+  .session-timer.danger .dot{background:var(--bad);animation:pulse 1s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+  .progress-track{height:5px;background:var(--rail);border-radius:6px;overflow:hidden;margin-bottom:18px;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--bead-dark),var(--bead));width:0%;transition:width .3s ease;}
+
+  .abacus-panel{
+    background:radial-gradient(circle at 50% -20%, #2a2445, #171429 70%);
+    border:1px solid #362f57;border-radius:16px;padding:22px 16px;
+    display:flex;flex-direction:column;align-items:center;position:relative;
+    box-shadow:inset 0 0 40px rgba(0,0,0,0.4);margin-bottom:18px;
+    min-height:180px;justify-content:center;
+  }
+  .abacus-panel::before{
+    content:"";position:absolute;top:12px;left:12px;right:12px;height:3px;
+    background:linear-gradient(90deg,transparent,var(--bead-dark) 15%,var(--bead) 50%,var(--bead-dark) 85%,transparent);
+    opacity:.6;
+  }
+  .num-row{
+    font-family:'Cairo',sans-serif;font-weight:800;
+    font-size:clamp(28px,9vw,42px);
+    padding:7px 0;width:100%;text-align:center;border-bottom:1px dashed #3a3460;letter-spacing:1px;
+  }
+  .num-row:last-of-type{border-bottom:none;}
+  .num-row.pos{color:#eae6f5;}
+  .num-row.neg{color:var(--accent2-light);}
+  .num-row .sign{opacity:.7;font-weight:600;margin-left:2px;}
+
+  .answer-area{display:flex;gap:8px;margin-bottom:6px;}
+  .sign-btn{
+    flex:0 0 auto;width:56px;background:var(--rail);border:2px solid #362f57;color:var(--bead-light);
+    border-radius:12px;font-size:22px;font-weight:800;cursor:pointer;font-family:'Cairo',sans-serif;
+  }
+  .sign-btn:active{background:var(--bead);color:#1c1305;}
+  #answerInput{
+    flex:1;min-width:0;background:var(--bg2);border:2px solid #362f57;color:var(--text);
+    border-radius:12px;padding:14px;font-size:22px;text-align:center;
+    font-family:'Cairo',sans-serif;font-weight:700;
+  }
+  #answerInput:focus{outline:none;border-color:var(--bead);}
+  .submit-btn{
+    background:linear-gradient(160deg,var(--bead-light),var(--bead));
+    color:#221505;border:none;border-radius:12px;padding:0 20px;
+    font-weight:800;font-family:'Cairo',sans-serif;cursor:pointer;font-size:15px;flex:0 0 auto;
+  }
+  .feedback{min-height:24px;text-align:center;font-weight:700;font-family:'Cairo',sans-serif;margin-top:8px;font-size:14px;}
+  .feedback.good{color:var(--good);}
+  .feedback.bad{color:var(--bad);}
+
+  .quiz-actions{display:flex;justify-content:space-between;margin-top:14px;gap:10px;}
+  .ghost-btn{
+    background:transparent;border:1px solid #3a3460;color:var(--muted);
+    padding:9px 14px;border-radius:8px;cursor:pointer;font-family:'Tajawal';font-size:13px;flex:1;
+  }
+  .ghost-btn:active{border-color:var(--bead);color:var(--bead-light);}
+
+  /* results */
+  #resultScreen{display:none;text-align:center;}
+  .score-big{font-family:'Cairo',sans-serif;font-weight:900;font-size:clamp(40px,12vw,56px);
+    background:linear-gradient(90deg,var(--bead-light),var(--bead));
+    -webkit-background-clip:text;background-clip:text;color:transparent;}
+  .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0;}
+  .stat-box{background:var(--rail);border:1px solid #3a3460;border-radius:10px;padding:12px;}
+  .stat-box .v{font-family:'Cairo',sans-serif;font-weight:800;font-size:20px;color:var(--bead-light);}
+  .stat-box .l{font-size:11.5px;color:var(--muted);margin-top:3px;}
+  .review-list{text-align:right;max-height:260px;overflow-y:auto;margin-top:12px;-webkit-overflow-scrolling:touch;}
+  .review-item{
+    display:flex;justify-content:space-between;align-items:center;gap:8px;
+    background:var(--bg2);border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:13px;
+    border-inline-start:4px solid var(--bad);
+  }
+  .review-item.correct{border-inline-start-color:var(--good);}
+  .review-item .terms{color:var(--muted);font-size:11px;flex:0 0 auto;}
+
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:26px;}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;}}
+  @media (max-width:380px){
+    .cat-btn{padding:12px;}
+    .cat-btn .letter{width:38px;height:38px;font-size:22px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <svg class="abacus-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="8" width="52" height="48" rx="6" stroke="#d4a039" stroke-width="3"/>
+      <line x1="6" y1="24" x2="58" y2="24" stroke="#d4a039" stroke-width="2"/>
+      <circle cx="18" cy="16" r="5" fill="#d4a039"/><circle cx="34" cy="16" r="5" fill="#c0392b"/><circle cx="48" cy="16" r="5" fill="#d4a039"/>
+      <circle cx="14" cy="38" r="5" fill="#f0c56b"/><circle cx="26" cy="38" r="5" fill="#f0c56b"/><circle cx="42" cy="38" r="5" fill="#f0c56b"/>
+      <circle cx="24" cy="50" r="5" fill="#f0c56b"/><circle cx="40" cy="50" r="5" fill="#f0c56b"/><circle cx="52" cy="50" r="5" fill="#f0c56b"/>
+    </svg>
+    <h1>مسرعة الذهن</h1>
+  </div>
+  <p class="tagline">تدريب الحساب الذهني بنفس فئات وقوانين مسابقة البصرة للرياضيات الذهنية 2026</p>
+
+  <!-- SETTINGS SCREEN -->
+  <div id="settingsScreen">
+    <div class="card">
+      <strong style="font-family:'Cairo';font-size:15px;">اختر الفئة</strong>
+      <div class="rail"></div>
+      <div class="cat-list" id="catList"></div>
+    </div>
+
+    <div class="card">
+      <strong style="font-family:'Cairo';font-size:15px;">مدة التمرين</strong>
+      <div class="rail"></div>
+      <div class="time-field">
+        <label>الوقت الكلي (دقائق)</label>
+        <div class="stepper">
+          <button type="button" class="step-btn" id="minusMin">−</button>
+          <input type="number" id="timeMinutes" value="5" min="1" max="60" readonly>
+          <button type="button" class="step-btn" id="plusMin">+</button>
+        </div>
+      </div>
+      <div class="time-hint">تُعرض لك الأسئلة تباعًا حتى تنتهي المدة أو تكمل جميع أسئلة الفئة</div>
+      <button class="start-btn" id="startBtn">ابدأ التمرين</button>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="quizScreen">
+    <div class="card">
+      <div class="quiz-top">
+        <div class="progress-pill">سؤال <b id="qIndex">1</b> / <span id="qTotal">50</span></div>
+        <div class="session-timer" id="sessionTimer"><span class="dot"></span><span id="timeLeftLabel">05:00</span></div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+      <div class="abacus-panel" id="numColumn"></div>
+
+      <div class="answer-area">
+        <button type="button" class="sign-btn" id="signBtn">±</button>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="answerInput" placeholder="اكتب الناتج" autocomplete="off">
+        <button class="submit-btn" id="submitBtn">تأكيد</button>
+      </div>
+      <div class="feedback" id="feedback"></div>
+
+      <div class="quiz-actions">
+        <button class="ghost-btn" id="skipBtn">تخطي</button>
+        <button class="ghost-btn" id="quitBtn">إنهاء وعرض النتيجة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="resultScreen">
+    <div class="card">
+      <div style="color:var(--muted);font-family:'Cairo';font-size:13px;">نتيجتك</div>
+      <div class="score-big" id="scoreBig">0/0</div>
+      <div class="stat-grid">
+        <div class="stat-box"><div class="v" id="statAccuracy">0%</div><div class="l">نسبة الدقة</div></div>
+        <div class="stat-box"><div class="v" id="statTime">0:00</div><div class="l">الوقت المستغرق</div></div>
+        <div class="stat-box"><div class="v" id="statAvg">0.0s</div><div class="l">متوسط زمن الإجابة</div></div>
+        <div class="stat-box"><div class="v" id="statCat">A</div><div class="l">الفئة</div></div>
+      </div>
+      <div class="review-list" id="reviewList"></div>
+      <button class="start-btn" id="restartBtn">تمرين جديد</button>
+    </div>
+  </div>
+
+  <footer>مستوحى من تدريبات مسابقة البصرة للرياضيات الذهنية 2026</footer>
+</div>
+
+<script>
+(function(){
+  // ---------- Fixed categories exactly per the competition rule cards ----------
+  const PRESETS = {
+    A: {
+      key:'A', title:'الفئة A', subtitle:'جمع وطرح بسيط أحاد',
+      rule:'معادلات جمع وطرح بسيط أحاد، مكوّنة من 4 إلى 6 طوابق (أرقام من -9 إلى 9)، والناتج يبقى رقمًا آحاديًا (0-9) كما في الكراس',
+      ages:'مواليد 2019 - 2020 - 2021',
+      termsMin:4, termsMax:6, digitMin:-9, digitMax:9, numQuestions:240, clamp:[0,9]
+    },
+    B: {
+      key:'B', title:'الفئة B', subtitle:'جمع وطرح بسيط أحاد',
+      rule:'معادلات جمع وطرح بسيط أحاد، مكوّنة من 4 إلى 7 طوابق (أرقام من -9 إلى 9)، والناتج يبقى رقمًا آحاديًا (0-9)',
+      ages:'مواليد 2017 - 2018',
+      termsMin:4, termsMax:7, digitMin:-9, digitMax:9, numQuestions:240, clamp:[0,9]
+    },
+    C: {
+      key:'C', title:'الفئة C', subtitle:'مكمّلات الرقم 5 — الجمع والطرح المركّب',
+      rule:'معادلات مكوّنة من أصدقاء الرقم 5، مكوّنة من 5 إلى 9 طوابق، مع تراكم مركّب يسمح بنواتج من رقمين كما في كراس الفئة C',
+      ages:'مواليد 2015 - 2016 (ومن يرغب من فئتي A وB)',
+      termsMin:5, termsMax:9, digitMin:-9, digitMax:9, numQuestions:240, clamp:null
+    },
+    D: {
+      key:'D', title:'الفئة D', subtitle:'مكمّلات الرقم 5 — أحاد وعشرات',
+      rule:'معادلات مكوّنة من أصدقاء الرقم Small (±5)، أحاد وعشرات، مكوّنة من 5 إلى 9 طوابق، والناتج يبقى آحاديًا (0-9)',
+      ages:'مواليد 2012 - 2013 - 2014',
+      termsMin:5, termsMax:9, digitMin:-19, digitMax:19, numQuestions:240, clamp:[0,9]
+    },
+    E: {
+      key:'E', title:'الفئة E', subtitle:'صديق صغير (±5) وصديق كبير (±10)',
+      rule:'معادلات تجمع بين أصدقاء الرقم Small(±5) وBig(±10)، مكوّنة من 5 إلى 9 طوابق، بتراكم مركّب دون تقييد الناتج بخانة واحدة',
+      ages:'مفتوحة لكل الفئات',
+      termsMin:5, termsMax:9, digitMin:-19, digitMax:19, numQuestions:240, clamp:null
+    },
+  };
+
+  let selectedKey = 'A';
+  const catList = document.getElementById('catList');
+  Object.values(PRESETS).forEach(p=>{
+    const btn = document.createElement('div');
+    btn.className='cat-btn'+(p.key==='A'?' active':'');
+    btn.dataset.key=p.key;
+    btn.innerHTML = `
+      <div class="letter">${p.key}</div>
+      <div class="info">
+        <div class="t">${p.title} — ${p.subtitle}</div>
+        <div class="r">${p.rule}</div>
+        <div class="a">${p.ages}</div>
+      </div>`;
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedKey = p.key;
+    });
+    catList.appendChild(btn);
+  });
+
+  // time stepper (minutes only, 1 and up)
+  const timeInput = document.getElementById('timeMinutes');
+  document.getElementById('minusMin').addEventListener('click', ()=>{
+    timeInput.value = Math.max(1, parseInt(timeInput.value,10)-1);
+  });
+  document.getElementById('plusMin').addEventListener('click', ()=>{
+    timeInput.value = Math.min(60, parseInt(timeInput.value,10)+1);
+  });
+
+  // ---------- Question generation ----------
+  function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+  function generateQuestion(cfg){
+    // clamp = [min,max] window the running total must stay inside after every
+    // term (matches the single-digit 0-9 results printed in the A/B/D answer
+    // keys). clamp = null means only "never negative", allowing the compound,
+    // multi-digit totals seen in the C/E "الجمع والطرح المركب" sheets.
+    const lo = cfg.clamp ? cfg.clamp[0] : 0;
+    const hi = cfg.clamp ? cfg.clamp[1] : Infinity;
+
+    for(let attempt=0; attempt<40; attempt++){
+      const termCount = randInt(cfg.termsMin, cfg.termsMax);
+      const terms = [];
+      let running = 0;
+      let ok = true;
+      for(let i=0;i<termCount;i++){
+        let val, placed=false;
+        for(let tries=0; tries<30; tries++){
+          if(i===0){
+            val = randInt(Math.max(1,lo || 1), Math.min(cfg.digitMax, hi===Infinity?cfg.digitMax:hi));
+          } else {
+            val = randInt(cfg.digitMin, cfg.digitMax);
+          }
+          if(val===0) continue;
+          const next = running+val;
+          if(next>=lo && next<=hi){ placed=true; break; }
+        }
+        if(!placed){ ok=false; break; }
+        running += val;
+        terms.push(val);
+      }
+      if(ok) return {terms, answer: running};
+    }
+    // fallback: simple guaranteed-valid two-term question within range
+    const a = randInt(Math.max(1,lo||1), cfg.digitMax);
+    return {terms:[a], answer:a};
+  }
+
+  // ---------- State ----------
+  let state = null;
+
+  document.getElementById('startBtn').addEventListener('click', ()=>{
+    const cfg = PRESETS[selectedKey];
+    const minutes = Math.max(1, parseInt(timeInput.value,10)||5);
+    startQuiz(cfg, minutes);
+  });
+
+  function startQuiz(cfg, minutes){
+    state = {
+      cfg, minutes,
+      idx:0, score:0,
+      startTime: Date.now(),
+      totalMs: minutes*60*1000,
+      answers:[],
+      current:null, qStart:null,
+      sessionTimer:null,
+      finished:false,
+    };
+    document.getElementById('settingsScreen').style.display='none';
+    document.getElementById('resultScreen').style.display='none';
+    document.getElementById('quizScreen').style.display='block';
+    document.getElementById('qTotal').textContent = cfg.numQuestions;
+
+    updateSessionTimerLabel(state.totalMs);
+    state.sessionTimer = setInterval(()=>{
+      const elapsed = Date.now()-state.startTime;
+      const remaining = state.totalMs - elapsed;
+      if(remaining<=0){
+        updateSessionTimerLabel(0);
+        finishQuiz();
+      } else {
+        updateSessionTimerLabel(remaining);
+      }
+    },250);
+
+    nextQuestion();
+  }
+
+  function updateSessionTimerLabel(ms){
+    const totalSec = Math.max(0,Math.ceil(ms/1000));
+    const mm = Math.floor(totalSec/60), ss = totalSec%60;
+    document.getElementById('timeLeftLabel').textContent = String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0');
+    const el = document.getElementById('sessionTimer');
+    el.classList.remove('warn','danger');
+    if(totalSec<=10) el.classList.add('danger');
+    else if(ms <= state.totalMs*0.2) el.classList.add('warn');
+  }
+
+  function nextQuestion(){
+    if(state.finished) return;
+    if(state.idx >= state.cfg.numQuestions){
+      finishQuiz();
+      return;
+    }
+    state.current = generateQuestion(state.cfg);
+    state.qStart = Date.now();
+    document.getElementById('qIndex').textContent = state.idx+1;
+    document.getElementById('progressFill').style.width = (state.idx/state.cfg.numQuestions*100)+'%';
+    document.getElementById('feedback').textContent='';
+    document.getElementById('feedback').className='feedback';
+
+    const col = document.getElementById('numColumn');
+    col.innerHTML='';
+    state.current.terms.forEach(t=>{
+      const row = document.createElement('div');
+      row.className = 'num-row ' + (t<0 ? 'neg':'pos');
+      row.innerHTML = (t<0 ? '<span class="sign">−</span>'+Math.abs(t) : t);
+      col.appendChild(row);
+    });
+
+    const input = document.getElementById('answerInput');
+    input.value='';
+    input.dataset.negative='0';
+    input.focus();
+  }
+
+  document.getElementById('signBtn').addEventListener('click', ()=>{
+    const input = document.getElementById('answerInput');
+    input.dataset.negative = input.dataset.negative==='1' ? '0':'1';
+    input.style.color = input.dataset.negative==='1' ? 'var(--accent2-light)' : 'var(--text)';
+  });
+
+  function submitAnswer(skipped){
+    if(state.finished) return;
+    const input = document.getElementById('answerInput');
+    let given = null;
+    if(!skipped && input.value.trim()!==''){
+      given = parseInt(input.value,10);
+      if(input.dataset.negative==='1') given = -Math.abs(given);
+    }
+    const correct = state.current.answer;
+    const isCorrect = given !== null && given === correct;
+    const timeTaken = (Date.now()-state.qStart)/1000;
+
+    state.answers.push({terms: state.current.terms.slice(), correctAnswer: correct, given, isCorrect, timeTaken});
+
+    const fb = document.getElementById('feedback');
+    if(isCorrect){
+      state.score++;
+      fb.textContent = 'إجابة صحيحة! ✓';
+      fb.className='feedback good';
+    } else {
+      fb.textContent = skipped ? ('تم التخطي — الإجابة الصحيحة: '+correct) : ('إجابة خاطئة — الصحيحة: '+correct);
+      fb.className='feedback bad';
+    }
+
+    state.idx++;
+    setTimeout(nextQuestion, 700);
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', ()=>submitAnswer(false));
+  document.getElementById('answerInput').addEventListener('keydown', (e)=>{
+    if(e.key==='Enter') submitAnswer(false);
+  });
+  document.getElementById('skipBtn').addEventListener('click', ()=>submitAnswer(true));
+  document.getElementById('quitBtn').addEventListener('click', ()=>{
+    finishQuiz();
+  });
+
+  function finishQuiz(){
+    if(state.finished) return;
+    state.finished = true;
+    clearInterval(state.sessionTimer);
+    document.getElementById('quizScreen').style.display='none';
+    document.getElementById('resultScreen').style.display='block';
+
+    const total = state.answers.length;
+    const correctCount = state.answers.filter(a=>a.isCorrect).length;
+    const totalTime = (Date.now()-state.startTime)/1000;
+    const avgTime = total>0 ? (state.answers.reduce((s,a)=>s+a.timeTaken,0)/total) : 0;
+
+    document.getElementById('scoreBig').textContent = correctCount+'/'+total;
+    document.getElementById('statAccuracy').textContent = total>0 ? Math.round(correctCount/total*100)+'%' : '0%';
+    const mm = Math.floor(totalTime/60), ss = Math.round(totalTime%60);
+    document.getElementById('statTime').textContent = mm+':'+String(ss).padStart(2,'0');
+    document.getElementById('statAvg').textContent = avgTime.toFixed(1)+'s';
+    document.getElementById('statCat').textContent = state.cfg.key;
+
+    const list = document.getElementById('reviewList');
+    list.innerHTML='';
+    state.answers.forEach((a,i)=>{
+      const div = document.createElement('div');
+      div.className = 'review-item' + (a.isCorrect ? ' correct':'');
+      div.innerHTML = `<span>س${i+1}: ${a.given===null?'(بدون إجابة)':a.given} ${a.isCorrect?'':'← الصحيح '+a.correctAnswer}</span><span class="terms">${a.terms.join(' , ')}</span>`;
+      list.appendChild(div);
+    });
+  }
+
+  document.getElementById('restartBtn').addEventListener('click', ()=>{
+    document.getElementById('resultScreen').style.display='none';
+    document.getElementById('settingsScreen').style.display='block';
+  });
+
+})();
+</script>
+</body>
+</html>
