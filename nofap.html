@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REBOOT 90 | نظام التعافي النهائي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { cairo: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            dark: '#020617', card: '#0f172a',
+                            emerald: '#10b981', danger: '#ef4444', gold: '#fbbf24'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-dark text-slate-100 font-cairo min-h-screen selection:bg-emerald-500 selection:text-white pb-10">
+
+    <!-- Navbar -->
+    <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🌌</span>
+                <div>
+                    <h1 class="text-xl font-black bg-gradient-to-r from-emerald-400 to-cyan-500 bg-clip-text text-transparent">نظام REBOOT النهائي</h1>
+                    <p class="text-xs text-slate-400">السيطرة التامة على الدوبامين</p>
+                </div>
+            </div>
+            <button onclick="openSosModal()" class="bg-red-600 hover:bg-red-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.5)] px-5 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 animate-pulse">
+                🚨 نبض الطوارئ
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-12">
+        
+        <!-- Top Section: Stats & Leveling -->
+        <div class="grid lg:grid-cols-3 gap-6">
+            
+            <!-- Streak Engine -->
+            <div class="lg:col-span-2 bg-brand-card border border-slate-800 p-8 rounded-3xl shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -z-10"></div>
+                <div class="text-center space-y-4">
+                    <h2 class="text-slate-400 font-bold uppercase tracking-widest text-sm">أيام السيادة والحرية</h2>
+                    <div class="text-8xl font-black text-emerald-400 drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]" id="streakCounter">0</div>
+                    
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="inline-flex items-center gap-2 bg-slate-800/80 px-4 py-2 rounded-full border border-slate-700">
+                            <span class="text-brand-gold">🏆 الرتبة الحالية:</span>
+                            <span id="rankDisplay" class="font-bold text-white">متدرب الوعي</span>
+                        </div>
+                        
+                        <!-- زر تحميل البطاقة (يظهر بعد تحقيق رتبة) -->
+                        <button onclick="downloadCertificate()" id="certificateBtn" class="hidden bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold border border-brand-gold/50 px-4 py-1.5 rounded-full text-sm font-bold transition items-center gap-2">
+                            📥 تحميل بطاقة الإنجاز الفريدة
+                        </button>
+                    </div>
+
+                    <div class="flex justify-center gap-4 pt-4">
+                        <button onclick="incrementStreak()" class="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white px-8 py-3 rounded-2xl font-black text-lg shadow-lg transition transform hover:scale-105">
+                            + توثيق انتصار اليوم
+                        </button>
+                        <button onclick="openRelapseModal()" class="bg-slate-800 hover:bg-red-900/40 text-slate-400 hover:text-red-400 border border-slate-700 hover:border-red-500/50 px-6 py-3 rounded-2xl font-bold transition">
+                            سقطت (تحليل الانتكاسة)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mini CBT Journal -->
+            <div class="bg-brand-card border border-slate-800 p-6 rounded-3xl shadow-xl flex flex-col">
+                <h3 class="text-lg font-bold text-cyan-400 mb-2 flex items-center gap-2">✍️ تفريغ العقل</h3>
+                <p class="text-xs text-slate-400 mb-4">انقل نشاط دماغك من اللوزة (الانفعال) إلى القشرة الجبهية (المنطق).</p>
+                <textarea id="journalEntry" class="w-full flex-1 bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-500 resize-none" placeholder="بماذا تشعر الآن؟ اكتب هنا واحرقه..."></textarea>
+                <button onclick="clearJournal()" class="mt-3 w-full bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-xl text-sm font-bold transition">
+                    🔥 تحرير وحرق الفكرة
+                </button>
+            </div>
+        </div>
+
+        <!-- Daily Habits Checklist (REQUIRED) -->
+        <section class="bg-brand-card border border-slate-800 p-6 md:p-8 rounded-3xl shadow-xl border-l-4 border-l-brand-gold">
+            <h3 class="text-2xl font-bold text-emerald-400 flex items-center gap-2 mb-2">
+                <span>📋</span> المهام الإلزامية (الشرط الأساسي)
+            </h3>
+            <p class="text-red-400 text-sm mb-6 font-bold">⚠️ لن تتمكن من إضافة يوم جديد حتى تكمل جميع هذه المهام!</p>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <label class="flex items-center gap-3 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer hover:bg-slate-800 transition">
+                    <input type="checkbox" class="habit-checkbox w-5 h-5 accent-emerald-500 rounded" onchange="toggleHabit(this)">
+                    <div>
+                        <div class="font-bold">استحمام بارد / تمارين تكيّف</div>
+                        <div class="text-xs text-slate-400">يرفع الدوبامين المستدام %250</div>
+                    </div>
+                </label>
+                <label class="flex items-center gap-3 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer hover:bg-slate-800 transition">
+                    <input type="checkbox" class="habit-checkbox w-5 h-5 accent-emerald-500 rounded" onchange="toggleHabit(this)">
+                    <div>
+                        <div class="font-bold">عمل عميق (Deep Work)</div>
+                        <div class="text-xs text-slate-400">توجيه الطاقة نحو هدف محدد</div>
+                    </div>
+                </label>
+                <label class="flex items-center gap-3 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer hover:bg-slate-800 transition">
+                    <input type="checkbox" class="habit-checkbox w-5 h-5 accent-emerald-500 rounded" onchange="toggleHabit(this)">
+                    <div>
+                        <div class="font-bold">تأمل / تنفس عميق (10 دقائق)</div>
+                        <div class="text-xs text-slate-400">تقوية القشرة الجبهية للتحكم بالدوافع</div>
+                    </div>
+                </label>
+                <label class="flex items-center gap-3 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer hover:bg-slate-800 transition">
+                    <input type="checkbox" class="habit-checkbox w-5 h-5 accent-emerald-500 rounded" onchange="toggleHabit(this)">
+                    <div>
+                        <div class="font-bold">ابتعاد عن الشاشات قبل النوم</div>
+                        <div class="text-xs text-slate-400">حماية الدماغ من المحفزات البصرية</div>
+                    </div>
+                </label>
+            </div>
+        </section>
+
+        <!-- Recovery Roadmap -->
+        <section class="space-y-6">
+            <h3 class="text-2xl font-bold text-slate-100">🗺️ خريطة التعافي</h3>
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-2 relative overflow-hidden group hover:border-red-500/50 transition">
+                    <div class="text-xs text-red-400 font-bold uppercase">المرحلة 1 (الأيام 1-7)</div>
+                    <div class="font-bold text-slate-200">الانسحاب والتطهير</div>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-2 relative overflow-hidden group hover:border-amber-500/50 transition">
+                    <div class="text-xs text-amber-400 font-bold uppercase">المرحلة 2 (الأيام 8-21)</div>
+                    <div class="font-bold text-slate-200">استعادة صحه الاعصاب</div>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-2 relative overflow-hidden group hover:border-violet-500/50 transition">
+                    <div class="text-xs text-violet-400 font-bold uppercase">المرحلة 3 (الأيام 22-60)</div>
+                    <div class="font-bold text-slate-200">تحويل الطاقة</div>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-2 relative overflow-hidden group hover:border-emerald-500/50 transition">
+                    <div class="text-xs text-emerald-400 font-bold uppercase">المرحلة 4 (الأيام 61-90+)</div>
+                    <div class="font-bold text-slate-200">وضع الخلق الدائم</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Custom Alert Modal (For incomplete tasks) -->
+    <div id="alertModal" class="fixed inset-0 bg-brand-dark/95 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-card border border-amber-500/50 max-w-sm w-full p-6 rounded-2xl shadow-2xl text-center">
+            <div class="text-5xl mb-4">⚠️</div>
+            <h3 class="text-xl font-bold text-amber-400 mb-2">المهام غير مكتملة!</h3>
+            <p class="text-slate-300 text-sm mb-6">لا يمكنك الغش في طريق التعافي. يجب عليك إكمال جميع "المهام الإلزامية" أولاً لإضافة يوم جديد.</p>
+            <button onclick="closeAlertModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition">
+                حسناً، سأكملها
+            </button>
+        </div>
+    </div>
+
+    <!-- FULL Relapse Autopsy Modal (تم استعادتها بالكامل) -->
+    <div id="relapseModal" class="fixed inset-0 bg-brand-dark/95 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-card border border-red-500/50 max-w-lg w-full p-8 rounded-3xl shadow-2xl relative">
+            <h3 class="text-2xl font-black text-red-400 mb-2">تحليل السقوط (تشريح الانتكاسة)</h3>
+            <p class="text-slate-400 text-sm mb-6">الانتكاسة ليست فشلاً إذا تعلمنا منها. حدد الثغرة لنسدها للمرة القادمة.</p>
+            
+            <div class="space-y-4 text-sm font-bold text-right">
+                <label class="block text-slate-300">ما هو المحفز الأساسي؟</label>
+                <select class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-200 outline-none focus:border-red-500">
+                    <option>وسائل التواصل (انستغرام، تيك توك، الخ)</option>
+                    <option>التوتر وضغط العمل/الدراسة</option>
+                    <option>الملل الشديد والفراغ</option>
+                    <option>الوحدة والمشاعر السلبية</option>
+                </select>
+
+                <label class="block mt-4 text-slate-300">ما هو الحل الوقائي للمرة القادمة؟</label>
+                <input type="text" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-200 outline-none focus:border-red-500" placeholder="مثال: سأضع الهاتف خارج الغرفة ليلاً...">
+            </div>
+
+            <div class="flex gap-3 mt-8">
+                <button onclick="confirmReset()" class="flex-1 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-600/50 py-3 rounded-xl font-bold transition">
+                    تعلمت الدرس، أعد الضبط
+                </button>
+                <button onclick="closeRelapseModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-xl font-bold transition">
+                    تراجع
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FULL SOS Modal (تم استعادتها بالكامل) -->
+    <div id="sosModal" class="fixed inset-0 bg-brand-dark/95 backdrop-blur-xl hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-card border-2 border-red-500 max-w-md w-full p-8 rounded-3xl space-y-6 text-center shadow-[0_0_50px_rgba(239,68,68,0.2)]">
+            <div class="text-6xl animate-bounce">🛑</div>
+            <h3 class="text-3xl font-black text-red-500">أنت في عين العاصفة!</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+                الرغبة الآن في ذروتها. الدماغ يخدعك لتعتقد أنها لن تزول إلا بالاستسلام. هذا **كذب عصبي**. انتظر 5 دقائق فقط وسيتلاشى كل شيء.
+            </p>
+            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-inner">
+                <div class="text-xs text-emerald-400 font-bold mb-2">تنفس لإبطاء نبضات القلب (4-7-8)</div>
+                <div id="breathInstruction" class="text-2xl font-black text-white animate-pulse">استعد...</div>
+            </div>
+            <button onclick="closeSosModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 rounded-xl transition mt-4 shadow-lg border border-slate-600">
+                لقد تغلبت على الرغبة 💪
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Core Logic
+        let streak = localStorage.getItem('reboot_v5_streak') ? parseInt(localStorage.getItem('reboot_v5_streak')) : 0;
+        
+        function updateUI() {
+            document.getElementById('streakCounter').innerText = streak;
+
+            // Gamification / Rank System
+            let rank = "متدرب الوعي";
+            let color = "text-slate-400";
+            let showCertBtn = false;
+
+            if (streak >= 90) { rank = "سيد العقل (شفاء تام)"; color = "text-emerald-400"; showCertBtn = true;}
+            else if (streak >= 60) { rank = "صانع الواقع"; color = "text-brand-gold"; showCertBtn = true;}
+            else if (streak >= 30) { rank = "المُحارب النخبوي"; color = "text-cyan-400"; showCertBtn = true;}
+            else if (streak >= 14) { rank = "متحكم بالدوافع"; color = "text-violet-400"; showCertBtn = true;}
+            else if (streak >= 7) { rank = "كاسر القيود"; color = "text-amber-400"; showCertBtn = true;}
+            
+            let rankEl = document.getElementById('rankDisplay');
+            rankEl.innerText = rank;
+            rankEl.className = `font-black ${color}`;
+
+            // إظهار زر البطاقة فقط إذا حقق رتبة
+            const certBtn = document.getElementById('certificateBtn');
+            if(showCertBtn) {
+                certBtn.classList.remove('hidden');
+                certBtn.classList.add('inline-flex');
+            } else {
+                certBtn.classList.add('hidden');
+                certBtn.classList.remove('inline-flex');
+            }
+        }
+
+        // Add day ONLY if tasks are checked
+        function incrementStreak() {
+            const checkboxes = document.querySelectorAll('.habit-checkbox');
+            let allChecked = true;
+            
+            checkboxes.forEach(cb => {
+                if (!cb.checked) allChecked = false;
+            });
+
+            if (!allChecked) {
+                document.getElementById('alertModal').classList.remove('hidden');
+                return;
+            }
+
+            streak++;
+            localStorage.setItem('reboot_v5_streak', streak);
+            
+            // تصفير المهام لليوم التالي
+            checkboxes.forEach(cb => {
+                cb.checked = false;
+                toggleHabit(cb);
+            });
+
+            updateUI();
+        }
+
+        function closeAlertModal() {
+            document.getElementById('alertModal').classList.add('hidden');
+        }
+
+        // Dynamic Certificate Generator (Canvas)
+        function downloadCertificate() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1000;
+            canvas.height = 700;
+            const ctx = canvas.getContext('2d');
+            
+            // توليد خلفية متدرجة عشوائية
+            const gradients = [
+                ['#0f2027', '#203a43', '#2c5364'],
+                ['#1a2a6c', '#b21f1f', '#fdbb2d'],
+                ['#000000', '#0f9b0f', '#000000'],
+                ['#2b5876', '#4e4376', '#2b5876'],
+                ['#141E30', '#243B55', '#141E30']
+            ];
+            const randGrad = gradients[Math.floor(Math.random() * gradients.length)];
+            const grd = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            grd.addColorStop(0, randGrad[0]);
+            grd.addColorStop(0.5, randGrad[1]);
+            grd.addColorStop(1, randGrad[2]);
+            
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // رسم الإطار الذهبي
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 12;
+            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+            
+            // إعداد النصوص
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            ctx.font = 'bold 50px Arial';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('🏆 شهادة الإنجاز والسيادة الذاتية', canvas.width/2, 150);
+            
+            let currentRank = document.getElementById('rankDisplay').innerText;
+            ctx.font = 'bold 45px Arial';
+            ctx.fillStyle = '#10b981';
+            ctx.fillText('الرتبة: ' + currentRank, canvas.width/2, 280);
+            
+            ctx.font = 'bold 90px Arial';
+            ctx.fillStyle = '#fbbf24';
+            ctx.fillText(streak + ' يوم', canvas.width/2, 400);
+            
+            const uniqueID = 'REBOOT-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+            ctx.font = '24px Arial';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText('رمز التوثيق الفريد: ' + uniqueID, canvas.width/2, 550);
+            
+            const today = new Date().toLocaleDateString('ar-IQ');
+            ctx.fillText('تاريخ الإصدار: ' + today, canvas.width/2, 600);
+            
+            const link = document.createElement('a');
+            link.download = `Reboot_Achievement_${streak}_Days.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Utility functions
+        function toggleHabit(el) {
+            if(el.checked) {
+                el.parentElement.classList.add('border-emerald-500/50', 'bg-emerald-950/20');
+            } else {
+                el.parentElement.classList.remove('border-emerald-500/50', 'bg-emerald-950/20');
+            }
+        }
+
+        // Relapse Modal Logic
+        function openRelapseModal() { document.getElementById('relapseModal').classList.remove('hidden'); }
+        function closeRelapseModal() { document.getElementById('relapseModal').classList.add('hidden'); }
+        function confirmReset() {
+            streak = 0;
+            localStorage.setItem('reboot_v5_streak', streak);
+            updateUI();
+            closeRelapseModal();
+        }
+
+        function clearJournal() { document.getElementById('journalEntry').value = ''; }
+
+        // SOS Breath Logic
+        let breathInterval;
+        function openSosModal() {
+            document.getElementById('sosModal').classList.remove('hidden');
+            let steps = ["شهيق عميق (4 ثوانٍ)", "احبس أنفاسك (7 ثوانٍ)", "زفير بطيء جداً (8 ثوانٍ)"];
+            let i = 0;
+            document.getElementById('breathInstruction').innerText = steps[0];
+            breathInterval = setInterval(() => {
+                i = (i + 1) % steps.length;
+                document.getElementById('breathInstruction').innerText = steps[i];
+            }, 5000);
+        }
+        function closeSosModal() {
+            document.getElementById('sosModal').classList.add('hidden');
+            clearInterval(breathInterval);
+        }
+
+        // Init
+        updateUI();
+    </script>
+</body>
+</html>
