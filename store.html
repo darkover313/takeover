@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>متجر البرمجيات</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    :root {
+        --primary: #6366f1;
+        --primary-hover: #4f46e5;
+        --secondary: #1e293b;
+        --white: #ffffff;
+        --bg: #f1f5f9;
+        --text: #334155;
+        --text-light: #64748b;
+        --danger: #ef4444;
+        --success: #22c55e;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Arial, sans-serif; -webkit-tap-highlight-color:transparent; }
+    body { background: var(--bg); min-height:100vh; display:flex; flex-direction:column; color:var(--text); }
+
+    .header {
+        background: var(--secondary); color:var(--white); padding:14px 18px;
+        display:flex; justify-content:space-between; align-items:center;
+        box-shadow:0 4px 15px rgba(0,0,0,.15); position:sticky; top:0; z-index:500;
+    }
+    .header .logo { display:flex; align-items:center; gap:10px; font-weight:bold; font-size:1.15rem; }
+    .header .logo i { color:var(--primary); font-size:1.4rem; }
+    .header-controls { display:flex; align-items:center; gap:10px; }
+    .user-profile { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.1); padding:5px 10px; border-radius:20px; font-size:.85rem; }
+    .user-profile img { width:28px; height:28px; border-radius:50%; object-fit:cover; }
+    .logout-btn { color:#f87171; cursor:pointer; margin-right:5px; font-size:1.1rem; }
+
+    .search-bar { padding:12px 16px; background:var(--white); display:flex; gap:8px; box-shadow:0 2px 6px rgba(0,0,0,.05); position:sticky; top:57px; z-index:400; }
+    .search-bar input { flex:1; padding:10px 14px; border:1px solid #e2e8f0; border-radius:10px; outline:none; font-size:14px; }
+    .search-bar select { padding:10px; border:1px solid #e2e8f0; border-radius:10px; outline:none; font-size:13px; background:var(--white); }
+
+    .content { flex:1; padding:16px; overflow-y:auto; padding-bottom:90px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:14px; }
+
+    .card {
+        background:var(--white); border-radius:14px; overflow:hidden; cursor:pointer;
+        box-shadow:0 2px 10px rgba(0,0,0,.06); transition:transform .15s;
+        display:flex; flex-direction:column;
+    }
+    .card:active { transform:scale(.97); }
+    .card img { width:100%; height:120px; object-fit:cover; background:#e2e8f0; }
+    .card .no-img { width:100%; height:120px; display:flex; align-items:center; justify-content:center; background:#e2e8f0; color:#94a3b8; font-size:28px; }
+    .card-body { padding:10px 12px; display:flex; flex-direction:column; gap:4px; flex:1; }
+    .card-title { font-size:14px; font-weight:bold; color:var(--secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .card-price { font-size:13px; color:var(--primary); font-weight:bold; }
+    .card-cat { font-size:11px; color:var(--text-light); }
+
+    .empty-state { text-align:center; padding:60px 20px; color:var(--text-light); }
+    .empty-state i { font-size:40px; margin-bottom:10px; color:#cbd5e1; }
+
+    .fab {
+        position:fixed; bottom:24px; left:24px; width:58px; height:58px; border-radius:50%;
+        background:var(--primary); color:white; display:flex; align-items:center; justify-content:center;
+        font-size:24px; box-shadow:0 6px 20px rgba(99,102,241,.5); border:none; cursor:pointer; z-index:600;
+    }
+
+    .modal-overlay {
+        position:fixed; inset:0; background:rgba(15,23,42,.85); backdrop-filter:blur(4px);
+        display:none; justify-content:center; align-items:center; z-index:9999; padding:16px;
+    }
+    .modal-content {
+        background:white; border-radius:18px; text-align:center; max-width:420px; width:100%;
+        max-height:92vh; overflow-y:auto; box-shadow:0 20px 50px rgba(0,0,0,.3);
+    }
+    .modal-content.pad { padding:26px; }
+    .modal-content h2 { color:var(--secondary); margin-bottom:10px; }
+    .modal-content p { color:var(--text-light); margin-bottom:18px; font-size:14px; }
+
+    .btn { background:var(--primary); color:white; border:none; padding:12px; border-radius:10px; font-size:15px; font-weight:bold; cursor:pointer; width:100%; }
+    .btn:active { background:var(--primary-hover); }
+    .btn-outline { background:white; color:var(--text); border:1px solid #cbd5e1; }
+    .btn-danger { background:var(--danger); }
+    .btn-google { background:white; color:#333; border:1px solid #cbd5e1; display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:10px; }
+    .row-gap { display:flex; flex-direction:column; gap:10px; margin-top:10px; }
+
+    .form-section { text-align:right; padding:20px; }
+    .form-section input, .form-section textarea, .form-section select {
+        width:100%; padding:10px; margin-bottom:12px; border:1px solid #dfe4ea; border-radius:8px; font-family:inherit; font-size:14px;
+    }
+    .form-section label { font-size:12px; font-weight:bold; color:#475569; display:block; margin-bottom:5px; }
+    .upload-box { border:2px dashed #cbd5e1; padding:16px; text-align:center; cursor:pointer; border-radius:10px; background:#f8fafc; margin-bottom:8px; }
+    .upload-box i { font-size:24px; color:#94a3b8; margin-bottom:5px; }
+    .thumbs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+    .thumbs img { width:52px; height:52px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0; }
+    .status-text { font-size:12px; color:var(--primary); text-align:center; margin-top:4px; font-weight:bold; min-height:14px; }
+
+    .detail-images { display:flex; gap:8px; overflow-x:auto; scroll-snap-type:x mandatory; padding:14px 14px 0; }
+    .detail-images img { width:85%; flex-shrink:0; height:200px; object-fit:cover; border-radius:12px; scroll-snap-align:center; }
+    .detail-body { padding:16px; text-align:right; }
+    .detail-title { font-size:18px; font-weight:bold; color:var(--secondary); margin-bottom:6px; }
+    .detail-price { color:var(--primary); font-weight:bold; font-size:16px; margin-bottom:12px; }
+    .info-row { display:flex; align-items:flex-start; gap:8px; margin-bottom:10px; font-size:14px; color:#475569; }
+    .info-row i { color:var(--primary); width:18px; text-align:center; margin-top:3px; }
+    .contact-btn { display:block; width:100%; padding:11px; background:var(--success); color:white; text-align:center; text-decoration:none; border-radius:10px; font-weight:bold; margin-top:14px; }
+    .report-link { display:block; text-align:center; margin-top:10px; color:var(--danger); font-size:12px; cursor:pointer; }
+
+    .tabs { display:flex; background:white; }
+    .tabs button { flex:1; padding:12px; background:none; border:none; font-size:14px; font-weight:bold; color:var(--text-light); cursor:pointer; border-bottom:3px solid transparent; }
+    .tabs button.active { color:var(--primary); border-color:var(--primary); }
+</style>
+</head>
+<body>
+
+<div id="authModal" class="modal-overlay" style="display:flex;">
+    <div class="modal-content pad" style="border-bottom:4px solid #4285F4;">
+        <i class="fab fa-google" style="font-size:3rem; color:#4285F4; margin-bottom:15px;"></i>
+        <h2>مرحباً بك</h2>
+        <p>سجّل الدخول بحساب Google لتصفح المتجر أو نشر منتجك</p>
+        <button class="btn btn-google" onclick="signInWithGoogle()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:22px;" alt="Google">
+            تسجيل الدخول باستخدام Google
+        </button>
+    </div>
+</div>
+
+<div id="customDialog" class="modal-overlay">
+    <div class="modal-content pad" style="width:300px;">
+        <p id="dialogMessage" style="color:var(--secondary); font-size:15px; margin-bottom:16px;">رسالة</p>
+        <button id="dialogOkBtn" class="btn">موافق</button>
+    </div>
+</div>
+
+<!-- Publish product modal -->
+<div id="publishModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="form-section">
+            <h3 style="text-align:center; color:var(--secondary); margin-bottom:14px;"><i class="fas fa-plus-circle"></i> إضافة منتج جديد</h3>
+
+            <label>اسم البرنامج / المنتج</label>
+            <input type="text" id="pTitle" placeholder="مثال: برنامج محاسبة">
+
+            <label>الوصف</label>
+            <textarea id="pDesc" rows="3" placeholder="اكتب تفاصيل المنتج ومميزاته"></textarea>
+
+            <label>التصنيف</label>
+            <select id="pCategory">
+                <option value="أدوات">أدوات</option>
+                <option value="ألعاب">ألعاب</option>
+                <option value="تصميم">تصميم</option>
+                <option value="محاسبة وإدارة">محاسبة وإدارة</option>
+                <option value="مواقع وتطبيقات">مواقع وتطبيقات</option>
+                <option value="أخرى">أخرى</option>
+            </select>
+
+            <label>السعر (اختياري)</label>
+            <input type="text" id="pPrice" placeholder="مثال: 25000 دينار أو مجاني">
+
+            <label>طريقة التواصل (رقم هاتف / واتساب / تيليجرام)</label>
+            <input type="text" id="pContact" placeholder="مثال: 07xx xxx xxxx">
+
+            <label>رابط تحميل خارجي (اختياري)</label>
+            <input type="text" id="pLink" placeholder="رابط جوجل درايف أو أي رابط تحميل">
+
+            <label>صور المنتج (لقطات شاشة)</label>
+            <div class="upload-box" onclick="document.getElementById('pFileInput').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <div style="font-size:12px; color:#64748b;">انقر لرفع الصور</div>
+            </div>
+            <input type="file" id="pFileInput" multiple accept="image/*" style="display:none;">
+            <div class="thumbs" id="pThumbs"></div>
+            <div class="status-text" id="pUploadStatus"></div>
+
+            <div class="row-gap" style="margin-top:14px;">
+                <button class="btn" id="publishBtn" onclick="publishProduct()">نشر المنتج</button>
+                <button class="btn btn-outline" onclick="closePublish()">إلغاء</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Product detail modal -->
+<div id="detailModal" class="modal-overlay">
+    <div class="modal-content" id="detailContent"></div>
+</div>
+
+<!-- Report modal -->
+<div id="reportModal" class="modal-overlay">
+    <div class="modal-content pad" style="width:340px;">
+        <h3 style="color:var(--secondary); margin-bottom:10px;"><i class="fas fa-flag"></i> الإبلاغ عن هذا المنتج</h3>
+        <textarea id="reportReason" rows="3" placeholder="سبب الإبلاغ (مثال: منتج مخالف، احتيال، محتوى غير لائق)" style="width:100%; padding:10px; border:1px solid #dfe4ea; border-radius:8px; margin-bottom:14px; font-family:inherit;"></textarea>
+        <div class="row-gap">
+            <button class="btn btn-danger" onclick="sendReport()">إرسال البلاغ</button>
+            <button class="btn btn-outline" onclick="document.getElementById('reportModal').style.display='none'">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+<div class="header">
+    <div class="logo"><i class="fas fa-store"></i><div>متجر البرمجيات</div></div>
+    <div class="header-controls">
+        <div id="userProfileInfo"></div>
+    </div>
+</div>
+
+<div class="tabs">
+    <button class="active" id="tabBrowse" onclick="switchTab('browse')"><i class="fas fa-shopping-bag"></i> تصفح</button>
+    <button id="tabMine" onclick="switchTab('mine')"><i class="fas fa-box"></i> منتجاتي</button>
+</div>
+
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="ابحث عن منتج..." oninput="renderProducts()">
+    <select id="categoryFilter" onchange="renderProducts()">
+        <option value="">كل التصنيفات</option>
+        <option value="أدوات">أدوات</option>
+        <option value="ألعاب">ألعاب</option>
+        <option value="تصميم">تصميم</option>
+        <option value="محاسبة وإدارة">محاسبة وإدارة</option>
+        <option value="مواقع وتطبيقات">مواقع وتطبيقات</option>
+        <option value="أخرى">أخرى</option>
+    </select>
+</div>
+
+<div class="content">
+    <div class="grid" id="productsGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+        <i class="fas fa-box-open"></i>
+        <div>لا توجد منتجات لعرضها</div>
+    </div>
+</div>
+
+<button class="fab" onclick="openPublish()"><i class="fas fa-plus"></i></button>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, onValue, set, get, push, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    // ====== إعدادات Firebase (نفس مشروعك) ======
+    const firebaseConfig = {
+        apiKey: "AIzaSyC_sKFsr9RPg3nWTmw2KYIA8OCK6y6BOLI",
+        authDomain: "anyah-72c8a.firebaseapp.com",
+        databaseURL: "https://anyah-72c8a-default-rtdb.firebaseio.com",
+        projectId: "anyah-72c8a",
+        storageBucket: "anyah-72c8a.firebasestorage.app",
+        messagingSenderId: "161050950905",
+        appId: "1:161050950905:web:5777eaf327f702f608f628"
+    };
+
+    // ====== رفع الصور عبر رابط خارجي (Uploadcare) ======
+    const UPLOADCARE_PUB = "8cef23decc9496d28644";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const productsRef = ref(db, 'products');
+    const usersRef = ref(db, 'users');
+
+    let currentUser = null;
+    let allProducts = [];
+    let pUploadedImages = [];
+    let activeTab = 'browse';
+    let selectedProduct = null;
+
+    window.showMessage = function(msg) {
+        document.getElementById('dialogMessage').innerText = msg;
+        document.getElementById('customDialog').style.display = 'flex';
+        document.getElementById('dialogOkBtn').onclick = () => document.getElementById('customDialog').style.display = 'none';
+    };
+
+    // ====== المصادقة ======
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const userRef = ref(db, 'users/' + user.uid);
+            get(userRef).then((snapshot) => {
+                const data = snapshot.val();
+                if (data && data.banned) {
+                    signOut(auth);
+                    showMessage("عذراً، تم حظر حسابك من قبل الإدارة.");
+                    return;
+                }
+                set(userRef, {
+                    uid: user.uid,
+                    name: user.displayName || 'مستخدم',
+                    email: user.email || '',
+                    photo: user.photoURL || '',
+                    lastLogin: Date.now(),
+                    banned: data ? !!data.banned : false
+                });
+                currentUser = { uid: user.uid, name: user.displayName || 'مستخدم', email: user.email || '', photo: user.photoURL || '' };
+                document.getElementById('authModal').style.display = 'none';
+                document.getElementById('userProfileInfo').innerHTML = `
+                    <div class="user-profile">
+                        <img src="${user.photoURL || 'https://placehold.co/40x40/e2e8f0/64748b?text=U'}" alt="">
+                        <span>${(user.displayName || 'مستخدم').split(' ')[0]}</span>
+                        <i class="fas fa-sign-out-alt logout-btn" onclick="logoutAccount()" title="خروج"></i>
+                    </div>`;
+                renderProducts();
+            }).catch(err => console.error(err));
+        } else {
+            currentUser = null;
+            document.getElementById('authModal').style.display = 'flex';
+            document.getElementById('userProfileInfo').innerHTML = '';
+        }
+    });
+
+    window.signInWithGoogle = function() {
+        signInWithPopup(auth, provider).catch(err => {
+            console.error(err);
+            showMessage("حدث خطأ أثناء تسجيل الدخول. تأكد من تفعيل Google Auth في Firebase.");
+        });
+    };
+    window.logoutAccount = function() { signOut(auth); };
+
+    // ====== تحميل المنتجات ======
+    onValue(productsRef, (snapshot) => {
+        const data = snapshot.val();
+        allProducts = data ? Object.entries(data).map(([id, v]) => ({ id, ...v })) : [];
+        renderProducts();
+    });
+
+    window.switchTab = function(tab) {
+        activeTab = tab;
+        document.getElementById('tabBrowse').classList.toggle('active', tab === 'browse');
+        document.getElementById('tabMine').classList.toggle('active', tab === 'mine');
+        renderProducts();
+    };
+
+    window.renderProducts = function() {
+        const grid = document.getElementById('productsGrid');
+        const empty = document.getElementById('emptyState');
+        const search = document.getElementById('searchInput').value.trim().toLowerCase();
+        const cat = document.getElementById('categoryFilter').value;
+
+        let list = allProducts.filter(p => p.status === 'approved');
+        if (activeTab === 'mine') {
+            list = allProducts.filter(p => currentUser && p.sellerUid === currentUser.uid);
+        }
+        if (search) list = list.filter(p => (p.title || '').toLowerCase().includes(search) || (p.description || '').toLowerCase().includes(search));
+        if (cat) list = list.filter(p => p.category === cat);
+
+        grid.innerHTML = '';
+        if (list.length === 0) { empty.style.display = 'block'; return; }
+        empty.style.display = 'none';
+
+        list.sort((a,b) => (b.createdAt||0) - (a.createdAt||0)).forEach(p => {
+            const img = (p.images && p.images[0]) ? `<img src="${p.images[0]}">` : `<div class="no-img"><i class="fas fa-image"></i></div>`;
+            const statusBadge = activeTab === 'mine' ? statusLabel(p.status) : '';
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `${img}<div class="card-body">
+                <div class="card-title">${escapeHtml(p.title || 'بدون عنوان')}</div>
+                <div class="card-price">${escapeHtml(p.price || 'غير محدد')}</div>
+                <div class="card-cat">${escapeHtml(p.category || '')} ${statusBadge}</div>
+            </div>`;
+            card.onclick = () => openDetail(p);
+            grid.appendChild(card);
+        });
+    };
+
+    function statusLabel(status) {
+        if (status === 'pending') return '<span style="color:#f59e0b;">• قيد المراجعة</span>';
+        if (status === 'rejected') return '<span style="color:#ef4444;">• مرفوض</span>';
+        return '<span style="color:#22c55e;">• منشور</span>';
+    }
+    function escapeHtml(str) {
+        return (str || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    // ====== تفاصيل المنتج ======
+    window.openDetail = function(p) {
+        selectedProduct = p;
+        let imagesHTML = '';
+        if (p.images && p.images.length) {
+            imagesHTML = `<div class="detail-images">${p.images.map(i => `<img src="${i}">`).join('')}</div>`;
+        }
+        const linkRow = p.link ? `<div class="info-row"><i class="fas fa-download"></i><span><a href="${p.link}" target="_blank" rel="noopener">رابط تحميل المنتج</a></span></div>` : '';
+        document.getElementById('detailContent').innerHTML = `
+            ${imagesHTML}
+            <div class="detail-body">
+                <div class="detail-title">${escapeHtml(p.title)}</div>
+                <div class="detail-price">${escapeHtml(p.price || 'غير محدد')}</div>
+                <div class="info-row"><i class="fas fa-user"></i> البائع: ${escapeHtml(p.sellerName || '')}</div>
+                <div class="info-row"><i class="fas fa-tag"></i> التصنيف: ${escapeHtml(p.category || '')}</div>
+                <div class="info-row" style="align-items:flex-start;"><i class="fas fa-align-right"></i><span style="line-height:1.5;">${escapeHtml(p.description || 'لا يوجد وصف')}</span></div>
+                ${linkRow}
+                <a href="tel:${p.contact || ''}" class="contact-btn"><i class="fas fa-phone-alt"></i> تواصل مع البائع (${escapeHtml(p.contact||'')})</a>
+                <div class="report-link" onclick="openReport()"><i class="fas fa-flag"></i> إبلاغ عن هذا المنتج</div>
+                <button class="btn btn-outline" style="margin-top:14px;" onclick="document.getElementById('detailModal').style.display='none'">إغلاق</button>
+            </div>`;
+        document.getElementById('detailModal').style.display = 'flex';
+    };
+
+    // ====== الإبلاغ ======
+    window.openReport = function() {
+        if (!currentUser) { showMessage('يجب تسجيل الدخول أولاً'); return; }
+        document.getElementById('reportReason').value = '';
+        document.getElementById('reportModal').style.display = 'flex';
+    };
+    window.sendReport = async function() {
+        const reason = document.getElementById('reportReason').value.trim();
+        if (!reason) { showMessage('يرجى كتابة سبب الإبلاغ'); return; }
+        const reportsRef = ref(db, 'reports');
+        const newRef = push(reportsRef);
+        await set(newRef, {
+            productId: selectedProduct.id,
+            productTitle: selectedProduct.title || '',
+            reporterUid: currentUser.uid,
+            reporterName: currentUser.name,
+            reason,
+            status: 'open',
+            createdAt: Date.now()
+        });
+        document.getElementById('reportModal').style.display = 'none';
+        showMessage('تم إرسال البلاغ، سيتم مراجعته من قبل الإدارة.');
+    };
+
+    // ====== نشر منتج ======
+    window.openPublish = function() {
+        if (!currentUser) { showMessage('يجب تسجيل الدخول أولاً'); return; }
+        document.getElementById('pTitle').value = '';
+        document.getElementById('pDesc').value = '';
+        document.getElementById('pPrice').value = '';
+        document.getElementById('pContact').value = '';
+        document.getElementById('pLink').value = '';
+        document.getElementById('pThumbs').innerHTML = '';
+        document.getElementById('pUploadStatus').innerText = '';
+        pUploadedImages = [];
+        document.getElementById('publishModal').style.display = 'flex';
+    };
+    window.closePublish = function() { document.getElementById('publishModal').style.display = 'none'; };
+
+    document.getElementById('pFileInput').addEventListener('change', async (e) => {
+        const files = e.target.files;
+        if (!files.length) return;
+        const statusDiv = document.getElementById('pUploadStatus');
+        const btn = document.getElementById('publishBtn');
+        btn.disabled = true; btn.style.opacity = '.5';
+        for (let i = 0; i < files.length; i++) {
+            statusDiv.innerText = `جاري رفع الصورة ${i+1} من ${files.length}...`;
+            try {
+                const formData = new FormData();
+                formData.append('file', files[i]);
+                formData.append('UPLOADCARE_PUB_KEY', UPLOADCARE_PUB);
+                formData.append('UPLOADCARE_STORE', 'auto');
+                const res = await fetch('https://upload.uploadcare.com/base/?jsonerrors=1', { method:'POST', body: formData });
+                const data = await res.json();
+                const url = `https://ucarecdn.com/${data.file}/`;
+                pUploadedImages.push(url);
+                const img = document.createElement('img');
+                img.src = url;
+                document.getElementById('pThumbs').appendChild(img);
+            } catch (err) { console.error(err); }
+        }
+        statusDiv.innerText = `تم رفع ${pUploadedImages.length} صورة بنجاح ✅`;
+        btn.disabled = false; btn.style.opacity = '1';
+    });
+
+    window.publishProduct = async function() {
+        const title = document.getElementById('pTitle').value.trim();
+        const desc = document.getElementById('pDesc').value.trim();
+        const category = document.getElementById('pCategory').value;
+        const price = document.getElementById('pPrice').value.trim();
+        const contact = document.getElementById('pContact').value.trim();
+        const link = document.getElementById('pLink').value.trim();
+
+        if (!title || !desc || !contact) { showMessage('يرجى تعبئة اسم المنتج والوصف وطريقة التواصل'); return; }
+
+        const newRef = push(productsRef);
+        await set(newRef, {
+            title, description: desc, category, price, contact, link,
+            images: pUploadedImages,
+            sellerUid: currentUser.uid,
+            sellerName: currentUser.name,
+            status: 'pending',
+            createdAt: Date.now()
+        });
+        closePublish();
+        showMessage('تم إرسال منتجك، سيظهر في المتجر بعد موافقة الإدارة.');
+        switchTab('mine');
+    };
+</script>
+</body>
+</html>
