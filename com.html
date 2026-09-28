@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سما الرافدين الزراعية | لخدمات المسح الزراعي</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#2e6a34',
+                            lightGreen: '#4a8b4b',
+                            blue: '#3672a3',
+                            darkBlue: '#1e4870',
+                            gold: '#db972c',
+                            light: '#f4f7f6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(30, 72, 112, 0.7), rgba(46, 106, 52, 0.7)), url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=2069&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .service-card:hover .icon-container {
+            background-color: #db972c;
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-brand-light antialiased">
+
+    <nav class="bg-white shadow-md fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center cursor-pointer">
+                    <div class="flex flex-col items-center leading-tight">
+                        <span class="text-2xl font-bold text-brand-darkBlue">سما الرافدين</span>
+                        <span class="text-lg font-semibold text-brand-green">الزراعية</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8 space-x-reverse">
+                    <a href="#home" class="text-gray-700 hover:text-brand-green font-semibold transition px-3 py-2">الرئيسية</a>
+                    <a href="#about" class="text-gray-700 hover:text-brand-green font-semibold transition px-3 py-2">من نحن</a>
+                    <a href="#services" class="text-gray-700 hover:text-brand-green font-semibold transition px-3 py-2">خدماتنا</a>
+                    <a href="#contact" class="text-gray-700 hover:text-brand-green font-semibold transition px-3 py-2">اتصل بنا</a>
+                </div>
+                <div class="hidden md:block">
+                    <a href="#contact" class="bg-brand-gold hover:bg-yellow-600 text-white px-6 py-2 rounded-full font-bold transition shadow-lg">احصل على استشارة</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-brand-darkBlue hover:text-brand-green focus:outline-none text-2xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#home" class="block px-3 py-2 text-gray-800 font-semibold hover:bg-brand-light hover:text-brand-green rounded-md">الرئيسية</a>
+                <a href="#about" class="block px-3 py-2 text-gray-800 font-semibold hover:bg-brand-light hover:text-brand-green rounded-md">من نحن</a>
+                <a href="#services" class="block px-3 py-2 text-gray-800 font-semibold hover:bg-brand-light hover:text-brand-green rounded-md">خدماتنا</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-800 font-semibold hover:bg-brand-light hover:text-brand-green rounded-md">اتصل بنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-bg h-screen flex items-center justify-center mt-10 md:mt-0 relative">
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
+                دقة المسح الزراعي <br> <span class="text-brand-gold">لغدٍ أكثر إنتاجية</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-100 mb-10 font-light drop-shadow-md">
+                رواد في تقديم أدق خدمات المسح الزراعي لضمان أعلى مستويات الكفاءة والنجاح لمشاريعكم الزراعية.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#services" class="bg-brand-green hover:bg-brand-lightGreen text-white px-8 py-4 rounded-full font-bold text-lg transition shadow-xl">اكتشف خدماتنا</a>
+                <a href="#contact" class="bg-white hover:bg-gray-100 text-brand-darkBlue px-8 py-4 rounded-full font-bold text-lg transition shadow-xl border border-transparent hover:border-brand-blue">تواصل معنا الآن</a>
+            </div>
+        </div>
+        <!-- Decorative bottom wave -->
+        <div class="absolute bottom-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-full h-12 md:h-24" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,123,194.2,111.2,238.45,102.83,281.33,78.23,321.39,56.44Z" class="fill-brand-light"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2000&auto=format&fit=crop" alt="تكنولوجيا الزراعة" class="w-full h-auto object-cover hover:scale-105 transition duration-700">
+                    </div>
+                </div>
+                <div class="lg:w-1/2 space-y-6">
+                    <div class="inline-block bg-green-100 text-brand-green px-4 py-1 rounded-full font-bold text-sm mb-2">من نحن</div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-brand-darkBlue">شركة سما الرافدين الزراعية</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        نحن شركة رائدة متخصصة في مجال المسح الزراعي وتقديم الاستشارات الهندسية الزراعية المتكاملة. نسعى دائماً لدمج خبراتنا الزراعية العريقة مع المعرفة الدقيقة بطبيعة الأراضي لتحقيق التنمية المستدامة.
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        نركز في عملنا على تقديم بيانات مكانية وتحليلات دقيقة تساعد المزارعين والمستثمرين على اتخاذ القرارات الصحيحة، وتحسين جودة التربة، وزيادة الإنتاج، وتقليل الهدر من خلال خدمات مسح شاملة ومتكاملة.
+                    </p>
+                    <ul class="space-y-3 mt-6">
+                        <li class="flex items-center text-gray-700 font-semibold">
+                            <i class="fas fa-check-circle text-brand-green text-xl ml-3"></i> دقة متناهية في جمع وتحليل البيانات.
+                        </li>
+                        <li class="flex items-center text-gray-700 font-semibold">
+                            <i class="fas fa-check-circle text-brand-green text-xl ml-3"></i> فريق عمل هندسي وفني متخصص وخبير.
+                        </li>
+                        <li class="flex items-center text-gray-700 font-semibold">
+                            <i class="fas fa-check-circle text-brand-green text-xl ml-3"></i> حلول مخصصة تناسب بيئة وطبيعة الأراضي العراقية.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="inline-block bg-blue-100 text-brand-blue px-4 py-1 rounded-full font-bold text-sm mb-4">مجالات التخصص</div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-brand-darkBlue mb-4">خدمات المسح الزراعي</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg">نقدم مجموعة شاملة من الخدمات المتخصصة لدعم القطاع الزراعي وتوفير البيانات الدقيقة لإدارة الأراضي بفعالية.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card bg-gray-50 rounded-2xl p-8 border border-gray-100 text-center relative overflow-hidden group">
+                    <div class="icon-container w-20 h-20 mx-auto bg-brand-green text-white rounded-full flex items-center justify-center text-3xl mb-6 transition duration-300">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-darkBlue mb-4 group-hover:text-brand-green transition">المسح الطبوغرافي</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        تقديم خرائط دقيقة لتضاريس الأراضي الزراعية وتحديد المناسيب والميول لتصميم شبكات الري والصرف بكفاءة.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-gold transform scale-x-0 group-hover:scale-x-100 transition duration-300 origin-right"></div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card bg-gray-50 rounded-2xl p-8 border border-gray-100 text-center relative overflow-hidden group">
+                    <div class="icon-container w-20 h-20 mx-auto bg-brand-blue text-white rounded-full flex items-center justify-center text-3xl mb-6 transition duration-300">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-darkBlue mb-4 group-hover:text-brand-blue transition">تحليل التربة والمياه</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        فحص دقيق لمكونات التربة وخصائص المياه لتحديد المحاصيل الأنسب ووضع خطط التسميد المخصصة لزيادة الإنتاج.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-gold transform scale-x-0 group-hover:scale-x-100 transition duration-300 origin-right"></div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card bg-gray-50 rounded-2xl p-8 border border-gray-100 text-center relative overflow-hidden group">
+                    <div class="icon-container w-20 h-20 mx-auto bg-brand-green text-white rounded-full flex items-center justify-center text-3xl mb-6 transition duration-300">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-darkBlue mb-4 group-hover:text-brand-green transition">مسح المحاصيل بالمسيرات</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        مراقبة وتقييم صحة المحاصيل باستخدام الطائرات المسيرة لاكتشاف الأمراض مبكراً وتتبع مراحل النمو بدقة فائقة.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-gold transform scale-x-0 group-hover:scale-x-100 transition duration-300 origin-right"></div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card bg-gray-50 rounded-2xl p-8 border border-gray-100 text-center relative overflow-hidden group">
+                    <div class="icon-container w-20 h-20 mx-auto bg-brand-blue text-white rounded-full flex items-center justify-center text-3xl mb-6 transition duration-300">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-darkBlue mb-4 group-hover:text-brand-blue transition">تخطيط المشاريع الزراعية</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        تقديم استشارات متكاملة لتخطيط الأراضي وتوزيع المحاصيل بناءً على البيانات المساحية الدقيقة لضمان نجاح المشروع.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-gold transform scale-x-0 group-hover:scale-x-100 transition duration-300 origin-right"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-brand-darkBlue text-white relative">
+        <!-- Decorative top wave -->
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-none rotate-180">
+            <svg class="relative block w-full h-10 md:h-16" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="fill-white"></path>
+            </svg>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-white">تواصل معنا</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto text-lg">نحن هنا للإجابة على استفساراتكم ومناقشة كيف يمكننا المساعدة في تطوير مشاريعكم الزراعية.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-12 bg-white rounded-3xl overflow-hidden shadow-2xl text-gray-800">
+                <!-- Contact Info -->
+                <div class="lg:w-1/3 bg-brand-green p-10 text-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">معلومات الاتصال</h3>
+                        <p class="text-green-100 mb-8 leading-relaxed">لا تتردد في زيارتنا أو الاتصال بنا. فريق عملنا جاهز لخدمتكم والإجابة على كافة استفساراتكم.</p>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-brand-gold text-2xl ml-4 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-lg">العنوان</h4>
+                                    <p class="text-green-100">محافظة الديوانية<br>العراق</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone-alt text-brand-gold text-2xl ml-4 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-lg">الهاتف</h4>
+                                    <p class="text-green-100" dir="ltr">+964 786 877 9825</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <h4 class="font-bold mb-4">تابعنا على الشبكات الاجتماعية</h4>
+                        <div class="flex space-x-4 space-x-reverse">
+                            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-brand-gold transition">
+                                <i class="fab fa-facebook-f text-white"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-brand-gold transition">
+                                <i class="fab fa-instagram text-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:w-2/3 p-10">
+                    <h3 class="text-2xl font-bold mb-6 text-brand-darkBlue">أرسل رسالة</h3>
+                    <form onsubmit="event.preventDefault(); alert('تم إرسال رسالتك بنجاح! شكراً لتواصلك مع سما الرافدين.');" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2" for="name">الاسم الكامل</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-green focus:ring-2 focus:ring-green-200 outline-none transition" placeholder="أدخل اسمك" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2" for="phone">رقم الهاتف</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-green focus:ring-2 focus:ring-green-200 outline-none transition" placeholder="رقم هاتفك" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2" for="service">نوع الخدمة المطلوبة</label>
+                            <select id="service" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-green focus:ring-2 focus:ring-green-200 outline-none transition">
+                                <option value="">اختر الخدمة...</option>
+                                <option value="topographic">المسح الطبوغرافي</option>
+                                <option value="soil">تحليل التربة والمياه</option>
+                                <option value="drone">المسح بالطائرات المسيرة</option>
+                                <option value="gis">تخطيط المشاريع الزراعية</option>
+                                <option value="other">استشارة أخرى</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2" for="message">الرسالة أو التفاصيل</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-green focus:ring-2 focus:ring-green-200 outline-none transition resize-none" placeholder="اكتب تفاصيل مشروعك أو استفسارك هنا..." required></textarea>
+                        </div>
+                        <button type="submit" class="bg-brand-blue hover:bg-brand-darkBlue text-white font-bold py-4 px-8 rounded-lg w-full transition shadow-md">
+                            إرسال الطلب <i class="fas fa-paper-plane mr-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="mb-2">&copy; 2026 شركة سما الرافدين الزراعية. جميع الحقوق محفوظة.</p>
+            <p class="text-sm">دقة متناهية لمشاريع زراعية ناجحة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar shadow on scroll
+        const navbar = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('py-2');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('py-2');
+            }
+        });
+    </script>
+</body>
+</html>
